@@ -3,7 +3,7 @@ import Index from "./pages/index";
 import Mine from "./pages/mine";
 import "taro-ui/dist/style/index.scss"; // 全局引入一次即可
 import "./app.less";
-import "../assets/icon.css"
+import "../assets/icon.css";
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -23,20 +23,20 @@ class App extends Component {
     tabBar: {
       list: [
         {
-          selectedIconPath: '\xe69a',
-          iconPath: '\xe64c',
+          iconPath: "assets/images/list.png",
+          selectedIconPath: "assets/images/list-selected.png",
           pagePath: "pages/index/index",
           text: "首页",
         },
         {
-          selectedIconPath: '\xe618',
-          iconPath: '\xe613',
+          iconPath: "assets/images/mine.png",
+          selectedIconPath: "assets/images/mine-selected.png",
           pagePath: "pages/mine/index",
           text: "我的",
         },
       ],
     },
-    sitemapLocation: "sitemap.json",
+    sitemapLocation: "../sitemap.json",
   };
 
   componentDidMount() {}
