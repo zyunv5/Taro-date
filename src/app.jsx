@@ -3,7 +3,6 @@ import Index from "./pages/index";
 import Mine from "./pages/mine";
 import "taro-ui/dist/style/index.scss"; // 全局引入一次即可
 import "./app.less";
-import "../assets/icon.css";
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
