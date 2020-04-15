@@ -1,6 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text, Input,Image } from "@tarojs/components";
 import searchIcon from "../../../assets/images/search.png"
+import "./index.css"
 
 export default class Index extends Component {
   constructor(props) {

@@ -12,7 +12,12 @@ import "./app.less";
 
 class App extends Component {
   config = {
-    pages: ["pages/index/index", "pages/mine/index"],
+    pages: [
+      "pages/index/index",
+      "pages/mine/index",
+      "pages/birthday/index",
+      "pages/commemorate/index",
+    ],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
@@ -38,7 +43,28 @@ class App extends Component {
     sitemapLocation: "../sitemap.json",
   };
 
-  componentDidMount() {}
+  componentWillMount() {
+    wx.cloud.init({
+      traceUser: true,
+    });
+  }
+  componentDidMount() {
+    wx.getSetting({
+      success(res) {
+        console.log(res);
+        if (!res.authSetting["scope.userInfo"]) {
+          wx.authorize({
+            scope: "scope.userInfo",
+            success() {
+              console.log(111);
+              // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+              wx.getUserInfo();
+            },
+          });
+        }
+      },
+    });
+  }
 
   componentDidShow() {}
 

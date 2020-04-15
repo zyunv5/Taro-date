@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import './index.less'
 
 export default class Index extends Component {
 
@@ -10,7 +9,14 @@ export default class Index extends Component {
 
   componentWillMount () { }
 
-  componentDidMount () { }
+  componentDidMount () {
+    wx.cloud.callFunction({
+      name: 'get',
+      complete: res => {
+        console.log('callFunction test result: ', res)
+      }
+    })
+   }
 
   componentWillUnmount () { }
 
