@@ -1,7 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import "./index.less";
-import Dialog from "./userDialog"
 import Search from "./Search";
 
 export default class Index extends Component {
@@ -9,9 +8,29 @@ export default class Index extends Component {
     navigationBarTitleText: "首页",
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      canIUse: wx.canIUse("button.open-type.getUserInfo"),
+    };
+  }
+
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting["scope.userInfo"]) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          Taro.getUserInfo({
+            success: function (res) {
+              console.log(res.userInfo);
+            },
+          });
+        }
+      },
+    });
+  }
 
   componentWillUnmount() {}
 
@@ -19,9 +38,12 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
+  onGetUserInfo = (e) => {
+    console.log(e);
+  };
+
   goRouteBirthday = () => {
-    console.log(1);
-    Taro.navigateTo({url:"../birthday/index"})
+    Taro.navigateTo({ url: "../birthday/index" })
       .then((res) => {
         console.log(res);
       })
@@ -31,9 +53,19 @@ export default class Index extends Component {
   };
 
   render() {
+    const { canIUse } = this.state;
     return (
       <View className="index">
-        <Dialog />
+        {canIUse ? (
+          <button
+            open-type="getUserInfo"
+            onGetUserInfo={(userInfo) => this.onGetUserInfo(userInfo)}
+          >
+            授权
+          </button>
+        ) : (
+          <view>请升级微信版本</view>
+        )}
         <Search />
         <View onClick={() => this.goRouteBirthday()}>生日</View>
         <View>纪念日</View>

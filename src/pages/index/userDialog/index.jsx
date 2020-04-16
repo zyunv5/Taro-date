@@ -16,9 +16,7 @@ export default class Index extends Component {
   render() {
     return (
       <View className="dialog">
-        <Button open-type="getUserInfo" bindgetuserinfo="getUserInfo">
-          授权
-        </Button>
+        <button open-type="getUserInfo">登陆</button>
       </View>
     );
   }
