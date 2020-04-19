@@ -1,3 +1,28 @@
 .index {
-  margin-top: 15rpx;
+  width: 90%;
+  margin: 15rpx auto 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+}
+.index .index-add {
+  width: 100%;
+  margin: 55rpx auto 0;
+  display: flex;
+  justify-content: center;
+}
+.index .index-add .add-item {
+  width: 40vw;
+  height: 20vh;
+  text-align: center;
+  line-height: 20vh;
+  border: 1px solid blue;
+}
+.index .index-list {
+  width: 100%;
+}
+.index .index-list .list-item {
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
 }
