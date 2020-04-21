@@ -17,6 +17,8 @@ class App extends Component {
       "pages/mine/index",
       "pages/birthday/index",
       "pages/commemorate/index",
+      "pages/birthdayView/index",
+      "pages/commemorateView/index",
     ],
     window: {
       backgroundTextStyle: "light",
