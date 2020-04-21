@@ -28,7 +28,7 @@
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"cloudfunctionRoot": "birthdayList/",
-	"libVersion": "2.11.0",
+	"libVersion": "2.9.5",
 	"condition": {
 		"search": {
 			"current": -1,

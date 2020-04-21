@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Text } from "@tarojs/components";
+import { ScrollView,View, Text } from "@tarojs/components";
 import "./index.less";
 import Search from "./Search";
 
@@ -11,7 +11,7 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      canIUse: wx.canIUse("button.open-type.getUserInfo"),
+      // canIUse: wx.canIUse("button.open-type.getUserInfo"),
       listData: [
         { id: 0, name: "妈妈生日", date: "5" },
         { id: 1, name: "爸爸生日", date: "15" },
@@ -23,6 +23,16 @@ export default class Index extends Component {
         { id: 7, name: "妻子生日", date: "75" },
         { id: 8, name: "来京日子", date: "85" },
         { id: 9, name: "结婚纪念日", date: "95" },
+        { id: 10, name: "妈妈生日", date: "5" },
+        { id: 11, name: "爸爸生日", date: "15" },
+        { id: 12, name: "妻子生日", date: "25" },
+        { id: 13, name: "来京日子", date: "35" },
+        { id: 14, name: "结婚纪念日", date: "45" },
+        { id: 15, name: "妈妈生日", date: "55" },
+        { id: 16, name: "爸爸生日", date: "65" },
+        { id: 17, name: "妻子生日", date: "75" },
+        { id: 18, name: "来京日子", date: "85" },
+        { id: 19, name: "结婚纪念日", date: "95" },
       ],
     };
   }
@@ -65,9 +75,9 @@ export default class Index extends Component {
   };
 
   render() {
-    const { canIUse, listData } = this.state;
+    const { listData } = this.state;
     return (
-      <View className="index">
+      <ScrollView className="index" scrollY enableBackToTop={true}>
         {/* {canIUse ? (
           <button
             open-type="getUserInfo"
@@ -89,12 +99,13 @@ export default class Index extends Component {
           {listData.map((item, index) => {
             return (
               <View className="list-item" key={item.id}>
-                {item.name}
+                <View className="item-name">{item.name}</View>
+                <View className="item-date">{item.date}</View>
               </View>
             );
           })}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

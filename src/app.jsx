@@ -23,6 +23,7 @@ class App extends Component {
       navigationBarBackgroundColor: "#fff",
       navigationBarTitleText: "WeChat",
       navigationBarTextStyle: "black",
+      backgroundColor: "#5698c3",
     },
     tabBar: {
       list: [
