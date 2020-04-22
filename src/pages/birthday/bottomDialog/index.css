@@ -1,0 +1,55 @@
+.bottom-dialog {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+}
+.bottom-dialog .dialog-pick {
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  bottom: 0;
+  z-index: 150;
+  background-color: #fff;
+  border: 1px solid red;
+}
+.bottom-dialog .dialog-pick .pick-header {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0% 5%;
+  height: 60px;
+  line-height: 60px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+.bottom-dialog .dialog-pick .pick-header .header-cancel {
+  color: red;
+}
+.bottom-dialog .dialog-pick .pick-header .header-calendar {
+  display: flex;
+  flex-direction: row;
+}
+.bottom-dialog .dialog-pick .pick-header .header-calendar .calendar-item {
+  width: 75px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border: 1px solid green;
+}
+.bottom-dialog .dialog-pick .pick-header .header-calendar .calendar-item:first-child {
+  margin-right: 2px;
+}
+.bottom-dialog .dialog-pick .pick-header .header-confirm {
+  color: green;
+}
+.calendar-checked {
+  background-color: green;
+  color: #fff;
+}

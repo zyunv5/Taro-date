@@ -1,0 +1,57 @@
+.bottom-dialog {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  .dialog-pick {
+    width: 100%;
+    height: 400px;
+    position: absolute;
+    bottom: 0;
+    z-index: 150;
+    background-color: #fff;
+    border: 1px solid red;
+    .pick-header{
+      box-sizing: border-box;
+      width:100%;
+      padding:0% 5%;
+      height:60px;
+      line-height: 60px;
+      margin:0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom:1px solid #eee;
+      .header-cancel{
+        color:red;
+      }
+      .header-calendar{
+        display: flex;
+        flex-direction: row;
+        .calendar-item{
+          width:75px;
+          height:50px;
+          line-height: 50px;
+          text-align: center;
+          border:1px solid green;
+          &:first-child{
+            margin-right: 2px;
+
+          }
+        }
+      }
+      .header-confirm{
+        color:green;
+      }
+    }
+  }
+}
+
+.calendar-checked{
+  background-color: green;
+  color:#fff;
+}

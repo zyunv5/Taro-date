@@ -56,6 +56,14 @@
 					"id": -1,
 					"name": "pages/mine/index",
 					"pathName": "pages/mine/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/birthday/index",
+					"pathName": "pages/birthday/index",
+					"query": "",
 					"scene": null
 				}
 			]

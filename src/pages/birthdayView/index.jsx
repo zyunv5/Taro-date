@@ -1,11 +1,13 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
+import "./index.css";
 
 export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
+      sex:"",
       term: "",
       cycle: "",
       avatar: "",
@@ -23,6 +25,7 @@ export default class Index extends Component {
 
     this.setState({
       name: params.name,
+      sex:params.sex,
       term: params.term,
       cycle: params.cycle,
       avatar: params.avatar,
@@ -40,14 +43,19 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
-    const { name, term, avatar, solarCalendar, lunarCalendar } = this.state;
+    const { name,sex, term, avatar, solarCalendar, lunarCalendar } = this.state;
     return (
-      <View className="index">
-        <View>{name}</View>
-        <Image src={avatar} mode="aspectFit" />
-        <View>还有{term}天</View>
-        <View>就{cycle}岁了</View>
-        <View>生日是:{solarCalendar ? solarCalendar : lunarCalendar}</View>
+      <View className={`index ${sex===0?"bg-female":"bg-male"}`}>
+        <Image className="index-avatar" src={avatar} mode="aspectFit" />
+        <View className="index-info">
+          <View className="info-item">{name}</View>
+          <View className="info-item">
+            还有{term}天,就{cycle}岁了
+          </View>
+          <View className="info-item">
+            生日是:{solarCalendar ? solarCalendar : lunarCalendar}
+          </View>
+        </View>
       </View>
     );
   }
