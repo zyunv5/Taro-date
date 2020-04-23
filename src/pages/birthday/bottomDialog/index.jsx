@@ -9,6 +9,10 @@ export default class Index extends Component {
     const years = [];
     const months = [];
     const days = [];
+    const days31 = [];
+    const days30 = [];
+    const days29 = [];
+    const days28 = [];
     for (let i = 1990; i <= date.getFullYear(); i++) {
       years.push(i);
     }
@@ -16,30 +20,84 @@ export default class Index extends Component {
       months.push(i);
     }
     for (let i = 1; i <= 31; i++) {
-      days.push(i);
+      days31.push(i);
+      if(i <= 30){days30.push(i)}
+      if(i <= 29){days29.push(i)}
+      if(i <= 28){days28.push(i)}
     }
     this.state = {
       show: false,
       calendar: 0, //0是选择阳历 1是选择农历
       animationData: {},
+
       years: years,
-      year: date.getFullYear(),
       months: months,
-      oldMonths:["正月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","腊月"],
+      months31:[1,3,5,7,8,10,12],
+      months30:[4,6,9,11],
+      days: [],
+      days31:days31,
+      days30:days30,
+      days29:days29,
+      days28:days28,
+
+      year: date.getFullYear(),
       month: date.getMonth(),
-      days: days,
-      oldDays:["初一"],
       day: date.getDate(),
-      value: [9999, 0, 0],
+
+      oldMonths: [],
+      oldDays: [],
+      value: [],
     };
   }
-  componentWillMount() {}
+  componentWillMount() {
+    const date=new Date();
+    const currentDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    if(currentDay.getDate()===28){
+      this.setState({days:this.state.days28})
+    }else if(currentDay.getDate()===29){
+      this.setState({days:this.state.days29})
+    }else if(currentDay.getDate()===30){
+      this.setState({days:this.state.days30})
+    }else{
+      this.setState({days:this.state.days31})
+    }
+  }
 
   componentDidMount() {
     this.setState({
-      value:[9999,this.state.month,this.state.day]
-    })
+      value: [this.state.years.length - 1, this.state.month, this.state.day],
+    });
   }
+
+  onChangeDate = (e) => {
+    const val = e.detail.value;
+    const years=this.state.years[val[0]]
+    const month=this.state.months[val[1]]
+    const days=[];
+    if(years%4===0){
+      if(this.state.months31.includes(month)){
+        this.setState({days:this.state.days31})
+      }else if(this.state.months30.includes(month)){
+        this.setState({days:this.state.days30})
+      }else{
+        this.setState({days:this.state.days29})
+      }
+    }else{
+      if(this.state.months31.includes(month)){
+        this.setState({days:this.state.days31})
+      }else if(this.state.months30.includes(month)){
+        this.setState({days:this.state.days30})
+      }else{
+        this.setState({days:this.state.days28})
+      }
+    }
+    this.setState({
+      year: this.state.years[val[0]],
+      month: this.state.months[val[1]],
+      day: this.state.days[val[2]],
+      value: val,
+    });
+  };
 
   componentWillUnmount() {}
 
@@ -47,14 +105,6 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  changeSolar = () => {
-    console.log("阳历");
-    this.setState({ calendar: 0 });
-  };
-  changeLunar = () => {
-    console.log("农历");
-    this.setState({ calendar: 1 });
-  };
   hideDialog = () => {
     const animation = Taro.createAnimation({
       duration: 1000,
@@ -89,14 +139,13 @@ export default class Index extends Component {
     }, 0);
   };
 
-  onChangeDate = (e) => {
-    const val = e.detail.value;
-    this.setState({
-      year: this.state.years[val[0]],
-      month: this.state.months[val[1]],
-      day: this.state.days[val[2]],
-      value: val,
-    });
+  changeSolar = () => {
+    console.log("阳历");
+    this.setState({ calendar: 0 });
+  };
+  changeLunar = () => {
+    console.log("农历");
+    this.setState({ calendar: 1 });
   };
 
   render() {
@@ -150,19 +199,19 @@ export default class Index extends Component {
             value={this.state.value}
             onChange={this.onChangeDate}
           >
-            <PickerViewColumn  className="date-item">
-              {this.state.years.map((item, index) => {
-                return <View key={index}>{item}年</View>;
-              })}
-            </PickerViewColumn >
             <PickerViewColumn className="date-item">
-              {this.state.months.map((item, index) => {
-                return <View key={index}>{item}月</View>;
+              {this.state.years.map((item) => {
+                return <View key={item}>{item}年</View>;
               })}
-            </PickerViewColumn >
+            </PickerViewColumn>
             <PickerViewColumn className="date-item">
-              {this.state.days.map((item, index) => {
-                return <View key={index}>{item}日</View>;
+              {this.state.months.map((item) => {
+                return <View key={item}>{item}月</View>;
+              })}
+            </PickerViewColumn>
+            <PickerViewColumn className="date-item">
+              {this.state.days.map((item) => {
+                return <View key={item}>{item}日</View>;
               })}
             </PickerViewColumn>
           </PickerView>
