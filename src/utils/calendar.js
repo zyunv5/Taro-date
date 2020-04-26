@@ -311,7 +311,6 @@
       if(ganKey == 0) ganKey = 10;//如果余数为0则为最后一个天干
       if(zhiKey == 0) zhiKey = 12;//如果余数为0则为最后一个地支
       return this.Gan[ganKey-1] + this.Zhi[zhiKey-1];
-
   },
 
   /**
@@ -399,6 +398,21 @@
       // s+= "\u6708";//加上月字
       return s;
   },
+
+   /**
+    * 传入闰几月返回全年月份数组
+    * @param lunar month
+    * @return Cn string
+    * @eg:var cnMonth = calendar.toChinaMonth(12) ;//cnMonth='腊月'
+    */
+   toMonthArray:function(leap) { // 月 => \u6708
+    if(leap===0){
+        return this.nStr3
+    }else{
+      this.nStr3.splice(leap,0,`闰${this.nStr1[leap]}`)
+      return this.nStr3
+    }
+},
 
   /**
     * 传入农历日期数字返回汉字表示法
@@ -521,6 +535,7 @@
       }
       //农历月
       var month      = i;
+
       //农历日
       var day        = offset + 1;
       //天干地支处理
@@ -565,29 +580,32 @@
       var lunarFestivalDate = month+'-'+day
 
       return {
-        date: solarDate,
-        lunarDate: lunarDate,
-        festival: festival[festivalDate] ? festival[festivalDate].title : null,
-        lunarFestival: lfestival[lunarFestivalDate] ? lfestival[lunarFestivalDate].title : null,
-        'lYear':year,
-        'lMonth':month,
-        'lDay':day,
-        'Animal':this.getAnimal(year),
-        'IMonthCn':(isLeap?"\u95f0":'')+this.toChinaMonth(month),
-        'IDayCn':this.toChinaDay(day),
-        'cYear':y,
-        'cMonth':m,
-        'cDay':d,
-        'gzYear':gzY,
-        'gzMonth':gzM,
-        'gzDay':gzD,
-        'isToday':isToday,
-        'isLeap':isLeap,
-        'nWeek':nWeek,
-        'ncWeek':"\u661f\u671f"+cWeek,
-        'isTerm':isTerm,
-        'Term':Term,
-        'astro':astro
+        date: solarDate,//当前阳历
+        'cYear':y,//阳历年份
+        'cMonth':m,//阳历月份
+        'cDay':d,//阳历日期
+        "cMonthArray":this.solarDays(y,m),//当前阳历月份有几天
+        lunarDate: lunarDate,//当前阴历
+        'lYear':year,//农历年份
+        'lMonth':month,//农历月份
+        'lDay':day,//农历日期
+        'IMonthCn':(isLeap?"\u95f0":'')+this.toChinaMonth(month),//农历月份大写
+        'IDayCn':this.toChinaDay(day),//农历日期大写
+        'isLeap':isLeap,//当前是闰月吗
+        "leapMonth":leap,//这一年闰几月
+        "toMonthArray":this.toMonthArray(leap),//当前年度的农历月份大写
+        // 'isTerm':isTerm,//是否是节气
+        // 'Term':Term,//当前是什么节气
+        // 'gzYear':gzY,//天干地支年份
+        // 'gzMonth':gzM,//天干地支月份
+        // 'gzDay':gzD,//天干地支天分
+        // 'astro':astro,星座
+        // 'Animal':this.getAnimal(year),//属相
+         // 'nWeek':nWeek,//周几
+        // 'ncWeek':"\u661f\u671f"+cWeek,//星期几
+        // 'isToday':isToday,//是否今天
+         // festival: festival[festivalDate] ? festival[festivalDate].title : null,//阳历节日
+        // lunarFestival: lfestival[lunarFestivalDate] ? lfestival[lunarFestivalDate].title : null,//阴历节日
       };
   },
 

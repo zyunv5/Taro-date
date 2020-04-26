@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, PickerView, PickerViewColumn } from "@tarojs/components";
 import "./index.css";
-import { calendarFunc,oldMonths,oldDays } from "../../../utils/calendar";
+import { calendarFunc, oldMonths, oldDays } from "../../../utils/calendar";
 export default class Index extends Component {
   constructor(props) {
     super(props);
@@ -69,46 +69,94 @@ export default class Index extends Component {
 
   componentDidMount() {
     this.setState({
-      value: [this.state.years.length - 1, this.state.month, this.state.day],
+      value: [this.state.years.length - 1, this.state.month, this.state.day-1],
     });
-
   }
-
-  onChangeDate = (e) => {
-    const val = e.detail.value;
-    const years = this.state.years[val[0]];
-    const month = this.state.months[val[1]];
-    const days = [];
-    if (years % 4 === 0) {
-      if (this.state.months31.includes(month)) {
-        this.setState({ days: this.state.days31 });
-      } else if (this.state.months30.includes(month)) {
-        this.setState({ days: this.state.days30 });
-      } else {
-        this.setState({ days: this.state.days29 });
-      }
-    } else {
-      if (this.state.months31.includes(month)) {
-        this.setState({ days: this.state.days31 });
-      } else if (this.state.months30.includes(month)) {
-        this.setState({ days: this.state.days30 });
-      } else {
-        this.setState({ days: this.state.days28 });
-      }
-    }
-    this.setState({
-      year: this.state.years[val[0]],
-      month: this.state.months[val[1]],
-      day: this.state.days[val[2]],
-      value: val,
-    });
-  };
 
   componentWillUnmount() {}
 
   componentDidShow() {}
 
   componentDidHide() {}
+
+  //切换到阳历日历
+  changeSolar = () => {
+    const [year, month, day, value] = [
+      this.state.year,
+      this.state.month,
+      this.state.day,
+      this.state.value,
+    ];
+    this.setState({ calendar: 0 });
+    console.log(this.state.months);
+    console.log(year, this.state.months[value[1]], this.state.days[value[2]]);
+    // lunar2solar
+    // const newDay = calendarFunc.lunar2solar(
+    //   year,
+    //   currentValue[1] + 1,
+    //   currentValue[2] + 1
+    // );
+    // console.log(value, newDay);
+  };
+
+  //阳历切换到农历
+  changeLunar = () => {
+    const [year, month, day, value, years, months, days] = [
+      this.state.year,
+      this.state.month,
+      this.state.day,
+      this.state.value,
+      this.state.years,
+      this.state.months,
+      this.state.days,
+    ];
+    // const oldDay = calendarFunc.solar2lunar(year, month, day);
+    const oldDay = calendarFunc.solar2lunar(years[value[0]], months[value[1]], days[value[2]])
+    console.log(oldDay); //[30,3,24]
+    this.setState({
+      calendar: 1,
+      months: oldDay.toMonthArray,
+      days: oldDays,
+      value: [
+        value[0],
+        oldMonths.indexOf(oldDay.IMonthCn),
+        oldDays.indexOf(oldDay.IDayCn),
+      ],
+    });
+  };
+
+  onChangeDate = (e) => {
+    console.log(e);
+    const val = e.detail.value;
+    if (this.state.calendar === 0) {
+      const years = this.state.years[val[0]];
+      const month = this.state.months[val[1]];
+      if (years % 4 === 0) {
+        if (this.state.months31.includes(month)) {
+          this.setState({ days: this.state.days31 });
+        } else if (this.state.months30.includes(month)) {
+          this.setState({ days: this.state.days30 });
+        } else {
+          this.setState({ days: this.state.days29 });
+        }
+      } else {
+        if (this.state.months31.includes(month)) {
+          this.setState({ days: this.state.days31 });
+        } else if (this.state.months30.includes(month)) {
+          this.setState({ days: this.state.days30 });
+        } else {
+          this.setState({ days: this.state.days28 });
+        }
+      }
+      this.setState({
+        year: this.state.years[val[0]],
+        month: this.state.months[val[1]],
+        day: this.state.days[val[2]],
+        value: val,
+      });
+    } else {
+    }
+  };
 
   hideDialog = () => {
     const animation = Taro.createAnimation({
@@ -142,28 +190,6 @@ export default class Index extends Component {
         animationData: this.animation.export(),
       });
     }, 0);
-  };
-
-  //切换到阳历日历
-  changeSolar = () => {
-    console.log("阳历");
-    this.setState({ calendar: 0 });
-  };
-
-  //切换到农历日历
-  changeLunar = () => {
-    console.log("农历");
-    this.setState({ calendar: 1 });
-    const [year,month,day]=[this.state.year,this.state.month,this.state.day]
-    const oldDay= calendarFunc.solar2lunar(year,month+1,day);
-    console.log(oldDay.IMonthCn,oldDay.IDayCn);//四月 初二
-    console.log(this.state.value);//[30,3,24]
-    const currentValue=this.state.value
-    this.setState({
-      months:oldMonths,
-      days:oldDays,
-      value:[currentValue[0],oldMonths.indexOf(oldDay.IMonthCn),oldDays.indexOf(oldDay.IDayCn)]
-    })
   };
 
   render() {
@@ -228,11 +254,13 @@ export default class Index extends Component {
               })}
             </PickerViewColumn>
             <PickerViewColumn className="date-item">
-              {calendar===0?this.state.days.map((item) => {
-                return <View key={item}>{item}日</View>;
-              }):this.state.days.map((item) => {
-                return <View key={item}>{item}</View>;
-              })}
+              {calendar === 0
+                ? this.state.days.map((item) => {
+                    return <View key={item}>{item}日</View>;
+                  })
+                : this.state.days.map((item) => {
+                    return <View key={item}>{item}</View>;
+                  })}
             </PickerViewColumn>
           </PickerView>
         </View>
