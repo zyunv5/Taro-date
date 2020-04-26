@@ -45,6 +45,7 @@ export default class Index extends Component {
   showDialog = () => {
     this.refs.getDialog.showDialog();
   };
+
   render() {
     return (
       <View className="index">

@@ -301,6 +301,25 @@
   },
 
   /**
+    * 返回公历(!)y年m月的天数的数组
+    * @param solar Year
+    * @return Number (-1、28、29、30、31)
+    * @eg:var solarMonthDay = calendar.leapDays(1987) ;//solarMonthDay=30
+    */
+  solarDaysArray:function(x) {
+    var dArray=[]
+     for (let index = 1; index <= x; index++) {
+      dArray.push(index)
+     }
+     return dArray
+  },
+
+   /**
+    * 阳历月份
+    */
+  solarMonths:[1,2,3,4,5,6,7,8,9,10,11,12],
+
+  /**
    * 农历年份转换为干支纪年
    * @param  lYear 农历年的年份数
    * @return Cn string
@@ -409,8 +428,9 @@
     if(leap===0){
         return this.nStr3
     }else{
-      this.nStr3.splice(leap,0,`闰${this.nStr1[leap]}`)
-      return this.nStr3
+      var nStr=[...this.nStr3];
+      nStr.splice(leap,0,`闰${this.nStr1[leap]}`)
+      return nStr
     }
 },
 
@@ -584,7 +604,9 @@
         'cYear':y,//阳历年份
         'cMonth':m,//阳历月份
         'cDay':d,//阳历日期
-        "cMonthArray":this.solarDays(y,m),//当前阳历月份有几天
+        "solarMonths":this.solarMonths,
+        "cMonthNumber":this.solarDays(y,m),//当前阳历月份有几天
+        "solarDaysArray":this.solarDaysArray(this.solarDays(y,m)),
         lunarDate: lunarDate,//当前阴历
         'lYear':year,//农历年份
         'lMonth':month,//农历月份
