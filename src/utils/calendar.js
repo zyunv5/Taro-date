@@ -301,6 +301,7 @@
   },
 
   /**
+   * zy add
     * 返回公历(!)y年m月的天数的数组
     * @param solar Year
     * @return Number (-1、28、29、30、31)
@@ -315,6 +316,7 @@
   },
 
    /**
+    * zy add
     * 阳历月份
     */
   solarMonths:[1,2,3,4,5,6,7,8,9,10,11,12],
@@ -419,6 +421,7 @@
   },
 
    /**
+    * zy add
     * 传入闰几月返回全年月份数组
     * @param lunar month
     * @return Cn string
@@ -687,20 +690,6 @@
   }
 };
 
-const oldMonths = [
-  "正",
-  "二",
-  "三",
-  "四",
-  "五",
-  "六",
-  "七",
-  "八",
-  "九",
-  "十",
-  "冬",
-  "腊",
-];
 const oldDays = [
   "初一",
   "初二",
@@ -736,6 +725,5 @@ const oldDays = [
 
 module.exports={
   calendarFunc,
-  oldMonths,
   oldDays
 }

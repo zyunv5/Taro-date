@@ -61,8 +61,8 @@
 				},
 				{
 					"id": -1,
-					"name": "pages/birthday/index",
-					"pathName": "pages/birthday/index",
+					"name": "pages/addDay/index",
+					"pathName": "pages/addDay/index",
 					"query": "",
 					"scene": null
 				}

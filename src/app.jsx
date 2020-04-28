@@ -15,8 +15,7 @@ class App extends Component {
     pages: [
       "pages/index/index",
       "pages/mine/index",
-      "pages/birthday/index",
-      "pages/commemorate/index",
+      "pages/addDay/index",
       "pages/birthdayView/index",
       "pages/commemorateView/index",
     ],

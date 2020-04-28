@@ -235,7 +235,7 @@ export default class Index extends Component {
    * @desc 跳转到添加生日页面
    */
   goRouteBirthday = () => {
-    Taro.navigateTo({ url: "../birthday/index" })
+    Taro.navigateTo({ url: "../addDay/index" })
       .then((res) => {
         console.log(res);
       })
@@ -249,7 +249,7 @@ export default class Index extends Component {
    * @desc 跳转到添加纪念日页面
    */
   goRouteCommemorate = () => {
-    Taro.navigateTo({ url: "../commemorate/index" })
+    Taro.navigateTo({ url: "../addDay/index" })
       .then((res) => {
         console.log(res);
       })

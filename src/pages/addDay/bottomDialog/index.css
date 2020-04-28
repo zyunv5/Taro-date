@@ -49,14 +49,6 @@
 .bottom-dialog .dialog-pick .pick-header .header-confirm {
   color: green;
 }
-.bottom-dialog .dialog-pick .pick-date {
-  width: 90%;
-  height: 340px;
-  margin: 0 auto;
-}
-.bottom-dialog .dialog-pick .pick-date .date-item {
-  text-align: center;
-}
 .calendar-checked {
   background-color: green;
   color: #fff;

@@ -1,0 +1,8 @@
+.pick-date {
+  width: 90%;
+  height: 340px;
+  margin: 0 auto;
+}
+.pick-date .date-item {
+  text-align: center;
+}
