@@ -67,11 +67,7 @@ export default class Index extends Component {
   };
   lunarDate = () => {
     const [year, month, day] = this.state.value;
-    console.log(
-      this.state.years[year],
-      this.state.oldMonths[month],
-      oldDays[day]
-    );
+    return [this.state.years[year],this.state.oldMonths[month],oldDays[day]]
   };
 
   render() {

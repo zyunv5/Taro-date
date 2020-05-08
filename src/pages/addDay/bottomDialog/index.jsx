@@ -11,6 +11,7 @@ export default class Index extends Component {
       show: false,
       calendar: 0, //0是选择阳历 1是选择农历
       animationData: {},
+      date: null,
     };
   }
   componentWillMount() {}
@@ -33,12 +34,20 @@ export default class Index extends Component {
     this.setState({ calendar: 1 });
   };
 
-
   confirmDate = () => {
     if (this.state.calendar === 0) {
-      console.log(this.refs.solar.state.dateValue);
+      const [year, month, day] = this.refs.solar.state.dateValue;
+      this.setState({
+        date: `${year}-${month}-${day}`,
+      });
+      this.props.changeDateValue(`${year}-${month}-${day}`);
     } else {
+      const [year, month, day] = this.refs.lunar.lunarDate();
       console.log(this.refs.lunar.lunarDate());
+      this.setState({
+        date: `${year}-${month}-${day}`,
+      });
+      this.props.changeDateValue(`${year}-${month}月-${day}`);
     }
     this.hideDialog();
   };

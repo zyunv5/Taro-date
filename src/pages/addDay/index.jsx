@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, RadioGroup, Radio, Input } from "@tarojs/components";
+import { View, RadioGroup, Radio, Input, Label } from "@tarojs/components";
 import { AtImagePicker } from "taro-ui";
 import BottomDialog from "./bottomDialog/index";
 import "./index.less";
@@ -14,7 +14,7 @@ export default class Index extends Component {
     this.state = {
       type: 0,
       files: [],
-      dateSel: "2018-04-22",
+      dateSel: "",
     };
   }
   componentWillMount() {}
@@ -22,26 +22,36 @@ export default class Index extends Component {
   componentWillUnmount() {}
   componentDidShow() {}
   componentDidHide() {}
+  //勾选不同的纪念日
   radioChange = (event) => {
     this.setState({
       type: event.detail.value,
     });
   };
-  onChange = () => {
-    console.log(111);
+  onChange = (files,operationType,index) => {
+    console.log(files,operationType,index)
   };
-  onFail(mes) {
-    console.log(mes);
-  }
+  // 点击图片触发的回调
   onImageClick(index, file) {
     console.log(index, file);
   }
-
+  //选择图片失败
+  onFail(mes) {
+    console.log(mes);
+  }
+  //显示时间选择器
   showDialog = () => {
     this.refs.getDialog.showDialog();
   };
+  //改变时间
+  changeDateValue = (date) => {
+    this.setState({
+      dateSel: date,
+    });
+  };
 
   render() {
+    const { type, dateSel } = this.state;
     return (
       <View className="index">
         <RadioGroup
@@ -57,16 +67,29 @@ export default class Index extends Component {
         </RadioGroup>
         <View className="index-avatar">
           <AtImagePicker
+            multiple={false}
             files={this.state.files}
             onChange={() => this.onChange()}
             mode="top"
+            length="1"
+            className="avatar"
           />
         </View>
-
-        <Input type="text" placeholder="名字" maxLength="10" />
-
-        <View onClick={() => this.showDialog()}>显示弹框</View>
-        <BottomDialog ref="getDialog" />
+        <View className="index-name">
+          {type === 0 ? (
+            <View className="name-label">称呼</View>
+          ) : (
+            <View className="name-label">纪念日</View>
+          )}
+          <Input className="name-input" type="text" />
+        </View>
+        <View className="index-date">
+          <View className="date-label">日期</View>
+          <View className="date-select" onClick={() => this.showDialog()}>
+            {dateSel}
+          </View>
+        </View>
+        <BottomDialog ref="getDialog" changeDateValue={this.changeDateValue} />
       </View>
     );
   }

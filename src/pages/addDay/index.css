@@ -1,8 +1,9 @@
 .index {
   width: 100vw;
   height: 100vh;
-  padding-top: 5vh;
-  padding-left: 5vw;
+  padding: 5vh 5vw 0 5vw;
+  box-sizing: border-box;
+  position: relative;
 }
 .index .index-radio-group {
   width: 50vw;
@@ -10,4 +11,45 @@
 }
 .index .index-radio-group .radio-commemorate {
   margin-left: 30px;
+}
+.index .index-avatar {
+  margin: 5vh auto;
+  width: 25vw;
+  height: 25vw;
+}
+.index .index-avatar .avatar {
+  width: 100%;
+  height: 100%;
+}
+.index .index-name {
+  width: 60vw;
+  height: 5vh;
+  margin: 0vh auto 5vh;
+}
+.index .index-name .name-label {
+  width: 30%;
+  height: 100%;
+  line-height: 5vh;
+  float: left;
+}
+.index .index-name .name-input {
+  width: 80%;
+  height: 100%;
+  line-height: 5vh;
+  float: left;
+}
+.index .index-date {
+  width: 60vw;
+  height: 5vh;
+  margin: 0vh auto 5vh;
+}
+.index .index-date .date-label {
+  width: 20%;
+  height: 100%;
+  float: left;
+}
+.index .index-date .date-select {
+  width: 80%;
+  height: 100%;
+  float: left;
 }
