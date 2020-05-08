@@ -2,7 +2,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, PickerView, PickerViewColumn } from "@tarojs/components";
 import { calendarFunc, oldDays } from "../../../utils/calendar";
-import "./index.css"
+import "./index.css";
 
 export default class Index extends Component {
   config = {
@@ -25,8 +25,11 @@ export default class Index extends Component {
       day: date.getDate(),
       years: years,
       months: months,
+      oldMonths: [],
       days: [],
+      oldDays: oldDays,
       value: [],
+      isLeapMonth: null,
     };
   }
   componentWillMount() {
@@ -36,17 +39,40 @@ export default class Index extends Component {
       date.getMonth() + 1,
       date.getDate()
     );
-     console.log(currentDay);
+    this.setState({
+      oldMonths: currentDay.toMonthArray,
+      value: [
+        this.state.years.length - 1,
+        currentDay.toMonthArray.indexOf(currentDay.IMonthCn),
+        oldDays.indexOf(currentDay.IDayCn),
+      ],
+      days: currentDay.solarDaysArray,
+      isLeapMonth: currentDay.leapMonth,
+    });
   }
   componentDidMount() {}
   componentWillUnmount() {}
   componentDidShow() {}
   componentDidHide() {}
-
   //日期改变触发
   onChangeDate = (e) => {
     const val = e.detail.value;
-  }
+    const [year, month, day] = val;
+    const currentMonths=calendarFunc.lunar2solar(this.state.years[year],1,1);
+    this.setState({
+      oldMonths:currentMonths.toMonthArray,
+      isLeapMonth: currentMonths.leapMonth,
+      value: [year, month, day],
+    })
+  };
+  lunarDate = () => {
+    const [year, month, day] = this.state.value;
+    console.log(
+      this.state.years[year],
+      this.state.oldMonths[month],
+      oldDays[day]
+    );
+  };
 
   render() {
     return (
@@ -62,12 +88,12 @@ export default class Index extends Component {
           })}
         </PickerViewColumn>
         <PickerViewColumn className="date-item">
-          {this.state.months.map((item) => {
+          {this.state.oldMonths.map((item) => {
             return <View key={item}>{item}月</View>;
           })}
         </PickerViewColumn>
         <PickerViewColumn className="date-item">
-          {this.state.days.map((item) => {
+          {this.state.oldDays.map((item) => {
             return <View key={item}>{item}日</View>;
           })}
         </PickerViewColumn>

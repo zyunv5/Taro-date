@@ -35,7 +35,6 @@ export default class Index extends Component {
       date.getMonth() + 1,
       date.getDate()
     );
-    // console.log(currentDay);
     this.setState({
       days: currentDay.solarDaysArray,
       value: [this.state.years.length - 1, date.getMonth(), date.getDate() - 1],
@@ -48,13 +47,12 @@ export default class Index extends Component {
   //日期改变触发
   onChangeDate = (e) => {
     const val = e.detail.value;
-    const [year, month, day] = val;
+    const [year, month] = val;
     const currentDay = calendarFunc.solar2lunar(
       this.state.years[year],
       this.state.months[month],
-      this.state.days[day]
+      1
     );
-    console.log(currentDay);
     this.setState({
       days: [...currentDay.solarDaysArray],
       value: [val[0], val[1], val[2]],

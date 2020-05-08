@@ -496,6 +496,7 @@
           var objDate = new Date();
       }else {
           var objDate = new Date(y,parseInt(m)-1,d)
+
       }
       var i, leap=0, temp=0;
       //修正ymd参数
@@ -510,7 +511,6 @@
       if(offset<0) {
           offset+=temp; i--;
       }
-
       //是否今天
       var isTodayObj = new Date(),
           isToday    = false;
@@ -689,6 +689,7 @@
       return this.solar2lunar(cY,cM,cD);
   }
 };
+
 
 const oldDays = [
   "初一",

@@ -1,12 +1,8 @@
 import Taro, { Component } from "@tarojs/taro";
-import {
-  View,
-  RadioGroup,
-  Radio,
-  Input,
-} from "@tarojs/components";
+import { View, RadioGroup, Radio, Input } from "@tarojs/components";
 import { AtImagePicker } from "taro-ui";
 import BottomDialog from "./bottomDialog/index";
+import "./index.less";
 
 export default class Index extends Component {
   config = {
@@ -27,7 +23,6 @@ export default class Index extends Component {
   componentDidShow() {}
   componentDidHide() {}
   radioChange = (event) => {
-    // console.log(event.detail);
     this.setState({
       type: event.detail.value,
     });
@@ -50,22 +45,26 @@ export default class Index extends Component {
     return (
       <View className="index">
         <RadioGroup
-          class="radio-group"
+          class="index-radio-group"
           onChange={(event) => this.radioChange(event)}
         >
           <Radio value="0" checked>
             生日
           </Radio>
-          <Radio value="1" style="margin-left: 20rpx">
+          <Radio value="1" className="radio-commemorate">
             纪念日
           </Radio>
         </RadioGroup>
+        <View className="index-avatar">
+          <AtImagePicker
+            files={this.state.files}
+            onChange={() => this.onChange()}
+            mode="top"
+          />
+        </View>
+
         <Input type="text" placeholder="名字" maxLength="10" />
-        <AtImagePicker
-          files={this.state.files}
-          onChange={() => this.onChange()}
-          mode="top"
-        />
+
         <View onClick={() => this.showDialog()}>显示弹框</View>
         <BottomDialog ref="getDialog" />
       </View>

@@ -1,0 +1,13 @@
+.index {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 5vh;
+  padding-left: 5vw;
+}
+.index .index-radio-group {
+  width: 50vw;
+  margin: 0 auto;
+}
+.index .index-radio-group .radio-commemorate {
+  margin-left: 30px;
+}
