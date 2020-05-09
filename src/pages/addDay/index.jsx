@@ -14,6 +14,7 @@ export default class Index extends Component {
     this.state = {
       type: 0,
       files: [],
+      inputValue: "",
       dateSel: "",
     };
   }
@@ -28,8 +29,8 @@ export default class Index extends Component {
       type: event.detail.value,
     });
   };
-  onChange = (files,operationType,index) => {
-    console.log(files,operationType,index)
+  onChangeImg = (files, operationType, index) => {
+    console.log(files, operationType, index);
   };
   // 点击图片触发的回调
   onImageClick(index, file) {
@@ -39,6 +40,12 @@ export default class Index extends Component {
   onFail(mes) {
     console.log(mes);
   }
+  //用户输入
+  nameInput = (e) => {
+    this.setState({
+      inputValue: e.detail.value,
+    });
+  };
   //显示时间选择器
   showDialog = () => {
     this.refs.getDialog.showDialog();
@@ -49,7 +56,18 @@ export default class Index extends Component {
       dateSel: date,
     });
   };
-
+  //保存数据
+  confirm = () => {};
+  //取消保存
+  cancel = () => {
+    Taro.navigateTo({ url: "../index/index" })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   render() {
     const { type, dateSel } = this.state;
     return (
@@ -69,9 +87,9 @@ export default class Index extends Component {
           <AtImagePicker
             multiple={false}
             files={this.state.files}
-            onChange={() => this.onChange()}
+            onChange={() => this.onChangeImg()}
             mode="top"
-            length="1"
+            length={1}
             className="avatar"
           />
         </View>
@@ -81,12 +99,25 @@ export default class Index extends Component {
           ) : (
             <View className="name-label">纪念日</View>
           )}
-          <Input className="name-input" type="text" />
+          <Input
+            className="name-input"
+            type="text"
+            value={inputValue}
+            onInput={(e) => this.nameInput(e)}
+          />
         </View>
         <View className="index-date">
           <View className="date-label">日期</View>
           <View className="date-select" onClick={() => this.showDialog()}>
             {dateSel}
+          </View>
+        </View>
+        <View className="index-submit">
+          <View className="submit-confirm" onClick={() => this.confirm()}>
+            保存
+          </View>
+          <View className="submit-cancel" onClick={() => this.cancel()}>
+            取消
           </View>
         </View>
         <BottomDialog ref="getDialog" changeDateValue={this.changeDateValue} />

@@ -1,8 +1,9 @@
-import Taro, { Component } from "@tarojs/taro";
+import Taro, { Component, Fragment } from "@tarojs/taro";
 import { ScrollView, View, Text } from "@tarojs/components";
 import "./index.less";
 import Search from "./Search";
 import AddDay from "./addDay";
+import Tabbar from "../../components/tabbar/index";
 
 export default class Index extends Component {
   config = {
@@ -16,187 +17,207 @@ export default class Index extends Component {
       listData: [
         {
           id: 0,
-          name: "妈妈",//名称
-          sex:0,//0女 1男 2默认不填
-          term: "5",//还有几天
-          cycle:"40",//多少周年
-          avatar: "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg",//头像
-          solarCalendar: "1971-3-28",//阳历
-          lunarCalendar:"",//阴历
-          type: 0,//0是生日 1是纪念日
+          name: "妈妈", //名称
+          sex: 0, //0女 1男 2默认不填
+          term: "5", //还有几天
+          cycle: "40", //多少周年
+          avatar:
+            "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+          solarCalendar: "1971-3-28", //阳历
+          lunarCalendar: "", //阴历
+          type: 0, //0是生日 1是纪念日
         },
         {
           id: 1,
           name: "爸爸",
-          sex:1,
-          term: "15",cycle:"",
+          sex: 1,
+          term: "15",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 2,
           name: "妻子",
-          sex:0,
-          term: "25",cycle:"",
+          sex: 0,
+          term: "25",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 3,
           name: "来京",
-          sex:2,
-          term: "35",cycle:"",
+          sex: 2,
+          term: "35",
+          cycle: "",
           avatar: "",
           solarCalendar: "2017-7-13",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 1,
         },
         {
           id: 4,
           name: "结婚",
-          term: "45",cycle:"",
+          term: "45",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 1,
         },
         {
           id: 5,
           name: "妈妈",
-          term: "55",cycle:"",
+          term: "55",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 6,
           name: "爸爸",
-          term: "65",cycle:"",
+          term: "65",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 7,
           name: "妻子",
-          term: "75",cycle:"",
+          term: "75",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 8,
           name: "来京",
-          term: "85",cycle:"",
+          term: "85",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 1,
         },
         {
           id: 9,
           name: "结婚",
-          term: "95",cycle:"",
+          term: "95",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 1,
         },
         {
           id: 10,
           name: "妈妈",
-          term: "51",cycle:"",
+          term: "51",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 11,
           name: "爸爸",
-          term: "151",cycle:"",
+          term: "151",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 12,
           name: "妻子",
-          term: "252",cycle:"",
+          term: "252",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 13,
           name: "来京",
-          term: "353",cycle:"",
+          term: "353",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 1,
         },
         {
           id: 14,
           name: "结婚",
-          term: "47",cycle:"",
+          term: "47",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 1,
         },
         {
           id: 15,
           name: "妈妈",
-          term: "58",cycle:"",
+          term: "58",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 16,
           name: "爸爸",
-          term: "69",cycle:"",
+          term: "69",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 17,
           name: "妻子",
-          term: "70",cycle:"",
+          term: "70",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 0,
         },
         {
           id: 18,
           name: "来京",
-          term: "81",cycle:"",
+          term: "81",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 1,
         },
         {
           id: 19,
           name: "结婚",
-          term: "90",cycle:"",
+          term: "90",
+          cycle: "",
           avatar: "",
           solarCalendar: "",
-          lunarCalendar:"",
+          lunarCalendar: "",
           type: 1,
         },
       ],
@@ -279,8 +300,14 @@ export default class Index extends Component {
   render() {
     const { listData } = this.state;
     return (
-      <ScrollView className="index" scrollY enableBackToTop={true} enableFlex={true}>
-        {/* {canIUse ? (
+      <Fragment>
+        <ScrollView
+          className="index"
+          scrollY
+          enableBackToTop={true}
+          enableFlex={true}
+        >
+          {/* {canIUse ? (
           <button
             open-type="getUserInfo"
             onGetUserInfo={(userInfo) => this.onGetUserInfo(userInfo)}
@@ -290,26 +317,28 @@ export default class Index extends Component {
         ) : (
           <view>请升级微信版本</view>
         )} */}
-        <Search />
-        <View className="index-add">
-          <AddDay name="新增生日" link={() => this.goRouteBirthday()} />
-          <AddDay name="新增纪念日" link={() => this.goRouteCommemorate()} />
-        </View>
-        <View className="index-list">
-          {listData.map((item, index) => {
-            return (
-              <View
-                className="list-item"
-                key={item.id}
-                onClick={() => this.seeDetail(item)}
-              >
-                <View className="item-name">{item.name}</View>
-                <View className="item-date">{item.term}</View>
-              </View>
-            );
-          })}
-        </View>
-      </ScrollView>
+          <Search />
+          <View className="index-add">
+            <AddDay name="新增生日" link={() => this.goRouteBirthday()} />
+            <AddDay name="新增纪念日" link={() => this.goRouteCommemorate()} />
+          </View>
+          <View className="index-list">
+            {listData.map((item, index) => {
+              return (
+                <View
+                  className="list-item"
+                  key={item.id}
+                  onClick={() => this.seeDetail(item)}
+                >
+                  <View className="item-name">{item.name}</View>
+                  <View className="item-date">{item.term}</View>
+                </View>
+              );
+            })}
+          </View>
+        </ScrollView>
+        <Tabbar />
+      </Fragment>
     );
   }
 }

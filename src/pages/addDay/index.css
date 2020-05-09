@@ -33,7 +33,7 @@
   float: left;
 }
 .index .index-name .name-input {
-  width: 80%;
+  width: 70%;
   height: 100%;
   line-height: 5vh;
   float: left;
@@ -52,4 +52,24 @@
   width: 80%;
   height: 100%;
   float: left;
+}
+.index .index-submit {
+  width: 60vw;
+  margin: 5vh auto;
+}
+.index .index-submit .submit-confirm,
+.index .index-submit .submit-cancel {
+  width: 40vw;
+  height: 5vh;
+  line-height: 5vh;
+  text-align: center;
+  margin: 2vh auto;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+.index .index-submit .submit-confirm {
+  background: #8cd790;
+}
+.index .index-submit .submit-cancel {
+  background: #e0e3da;
 }

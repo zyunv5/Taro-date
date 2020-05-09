@@ -1,6 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
 import Index from "./pages/index";
-import Mine from "./pages/mine";
 import "taro-ui/dist/style/index.scss"; // 全局引入一次即可
 import "./app.less";
 
@@ -49,8 +48,10 @@ class App extends Component {
     wx.cloud.init({
       traceUser: true,
     });
+    wx.hideTabBar();
   }
   componentDidMount() {
+    wx.hideTabBar();
     wx.getSetting({
       success(res) {
         console.log(res);
@@ -77,7 +78,9 @@ class App extends Component {
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {
-    return <Index />;
+    return (
+      <Index/>
+    );
   }
 }
 
