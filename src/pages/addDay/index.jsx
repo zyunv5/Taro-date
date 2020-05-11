@@ -60,12 +60,13 @@ export default class Index extends Component {
   confirm = () => {};
   //取消保存
   cancel = () => {
-    Taro.navigateTo({ url: "../index/index" })
+    Taro.navigateTo({ url: "pages/index/index" })
       .then((res) => {
         console.log(res);
       })
       .catch((e) => {
         console.log(e);
+        wx.switchTab({ url: "/pages/index/index" });
       });
   };
   render() {
@@ -94,10 +95,10 @@ export default class Index extends Component {
           />
         </View>
         <View className="index-name">
-          {type === 0 ? (
-            <View className="name-label">称呼</View>
+          {parseInt(type) === 0 ? (
+            <View className="name-label">称呼：</View>
           ) : (
-            <View className="name-label">纪念日</View>
+            <View className="name-label">纪念日：</View>
           )}
           <Input
             className="name-input"
@@ -107,7 +108,7 @@ export default class Index extends Component {
           />
         </View>
         <View className="index-date">
-          <View className="date-label">日期</View>
+          <View className="date-label">日期：</View>
           <View className="date-select" onClick={() => this.showDialog()}>
             {dateSel}
           </View>

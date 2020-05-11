@@ -1,9 +1,8 @@
 .index {
   width: 100%;
-  padding: 0% 7.5%;
   height: 100vh;
   margin: 15px auto 0;
-  padding: 0 0 8vh 0;
+  padding: 0 30px 135px 30px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

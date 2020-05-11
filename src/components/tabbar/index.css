@@ -1,16 +1,27 @@
 .footer {
   width: 100vw;
   height: 120px;
-  background-color: plum;
   position: fixed;
   bottom: 0;
   left: 0;
   display: flex;
   align-items: center;
+  border-top: 5px solid #ccc;
 }
 .footer .footer-list {
   width: 30vw;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer .footer-list .list-img {
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+.footer .footer-list text {
+  font-size: 26px;
 }
 .footer .footer-add {
   flex: 1;
@@ -21,16 +32,28 @@
 .footer .footer-add .add-button {
   display: block;
   position: absolute;
-  top: -30%;
+  top: -35%;
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: 130px;
-  height: 130px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background-color: green;
+  background-color: #fff;
+  border: 10px solid #ccc;
 }
 .footer .footer-mine {
   width: 30vw;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer .footer-mine .mine-img {
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+.footer .footer-mine text {
+  font-size: 26px;
 }

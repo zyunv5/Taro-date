@@ -47,40 +47,51 @@ class App extends Component {
   componentWillMount() {
     wx.cloud.init({
       traceUser: true,
+      env:"test-50v2n"
     });
+    //隐藏自定义的tabbar
     wx.hideTabBar();
   }
   componentDidMount() {
+    // this.getOpenid();
+    //隐藏自定义的tabbar
     wx.hideTabBar();
-    wx.getSetting({
-      success(res) {
-        console.log(res);
-        if (!res.authSetting["scope.userInfo"]) {
-          wx.authorize({
-            scope: "scope.userInfo",
-            success() {
-              console.log(111);
-              // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-              wx.getUserInfo();
-            },
-          });
-        }
+  }
+
+  componentDidShow() {
+    //隐藏自定义的tabbar
+    wx.hideTabBar();
+  }
+
+  componentWillUnmount() {
+    //隐藏自定义的tabbar
+    wx.hideTabBar();
+  }
+
+  componentDidHide() {
+    //隐藏自定义的tabbar
+    wx.hideTabBar();
+  }
+
+  componentDidCatchError() {}
+
+  getOpenid=()=> {
+    wx.cloud.callFunction({
+      name: "getOpenid",
+      complete: (res) => {
+        console.log("云函数获取到的openid: ", res.result.openId);
+        var openid = res.result.openId;
+        this.setState({
+          openid: openid,
+        });
       },
     });
   }
 
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  componentDidCatchError() {}
-
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {
-    return (
-      <Index/>
-    );
+    return <Index />;
   }
 }
 

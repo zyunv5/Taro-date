@@ -1,36 +1,59 @@
 .footer {
   width: 100vw;
   height: 120px;
-  background-color: plum;
   position: fixed;
   bottom: 0;
   left: 0;
   display: flex;
   align-items: center;
+  border-top: 5px solid #ccc;
   .footer-list {
     width: 30vw;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .list-img {
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+    text{
+      font-size: 26px;
+    }
   }
   .footer-add {
     flex: 1;
     height: 120px;
     text-align: center;
     position: relative;
-    .add-button{
+    .add-button {
       display: block;
       position: absolute;
-      top:-30%;
-      left:0;
-      right:0;
+      top: -35%;
+      left: 0;
+      right: 0;
       margin: 0 auto;
-      width:130px;
-      height: 130px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      background-color: green;
+      background-color: #fff;
+      border: 10px solid #ccc;
     }
   }
   .footer-mine {
     width: 30vw;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .mine-img{
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+    text{
+      font-size: 26px;
+    }
   }
 }

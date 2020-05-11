@@ -1,8 +1,7 @@
 import Taro, { Component, Fragment } from "@tarojs/taro";
-import { ScrollView, View, Text } from "@tarojs/components";
+import { ScrollView, View, Text, Button } from "@tarojs/components";
 import "./index.less";
 import Search from "./Search";
-import AddDay from "./addDay";
 import Tabbar from "../../components/tabbar/index";
 
 export default class Index extends Component {
@@ -13,7 +12,6 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // canIUse: wx.canIUse("button.open-type.getUserInfo"),
       listData: [
         {
           id: 0,
@@ -230,7 +228,6 @@ export default class Index extends Component {
     wx.getSetting({
       success: function (res) {
         if (res.authSetting["scope.userInfo"]) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           Taro.getUserInfo({
             success: function (res) {
               console.log(res.userInfo);
@@ -241,43 +238,15 @@ export default class Index extends Component {
     });
   }
 
+  onGetUserInfo = (e) => {
+    console.log(e);
+  };
+
   componentWillUnmount() {}
 
   componentDidShow() {}
 
   componentDidHide() {}
-
-  onGetUserInfo = (e) => {
-    console.log(e);
-  };
-
-  /**
-   * @func
-   * @desc 跳转到添加生日页面
-   */
-  goRouteBirthday = () => {
-    Taro.navigateTo({ url: "../addDay/index" })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  /**
-   * @func
-   * @desc 跳转到添加纪念日页面
-   */
-  goRouteCommemorate = () => {
-    Taro.navigateTo({ url: "../addDay/index" })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
   /**
    * @func
@@ -298,7 +267,7 @@ export default class Index extends Component {
   };
 
   render() {
-    const { listData } = this.state;
+    const { listData, canIUse } = this.state;
     return (
       <Fragment>
         <ScrollView
@@ -307,21 +276,7 @@ export default class Index extends Component {
           enableBackToTop={true}
           enableFlex={true}
         >
-          {/* {canIUse ? (
-          <button
-            open-type="getUserInfo"
-            onGetUserInfo={(userInfo) => this.onGetUserInfo(userInfo)}
-          >
-            授权
-          </button>
-        ) : (
-          <view>请升级微信版本</view>
-        )} */}
           <Search />
-          <View className="index-add">
-            <AddDay name="新增生日" link={() => this.goRouteBirthday()} />
-            <AddDay name="新增纪念日" link={() => this.goRouteCommemorate()} />
-          </View>
           <View className="index-list">
             {listData.map((item, index) => {
               return (
@@ -337,6 +292,10 @@ export default class Index extends Component {
             })}
           </View>
         </ScrollView>
+        <Button
+            open-type="getUserInfo"
+            onGetUserInfo={(userInfo) => this.onGetUserInfo(userInfo)}
+          >授权</Button>
         <Tabbar />
       </Fragment>
     );
