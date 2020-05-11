@@ -75,19 +75,6 @@ class App extends Component {
 
   componentDidCatchError() {}
 
-  getOpenid=()=> {
-    wx.cloud.callFunction({
-      name: "getOpenid",
-      complete: (res) => {
-        console.log("云函数获取到的openid: ", res.result.openId);
-        var openid = res.result.openId;
-        this.setState({
-          openid: openid,
-        });
-      },
-    });
-  }
-
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {
