@@ -7,12 +7,15 @@ export default class Index extends Component {
     super(props);
     this.state = {
       canIUse: wx.canIUse("button.open-type.getUserInfo"),
-      isHide:false
+      isHide: false,
+      openid:null
     };
   }
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getOpenid();
+  }
 
   componentWillUnmount() {}
 
@@ -28,7 +31,6 @@ export default class Index extends Component {
       this.setState({
         isHide: true,
       });
-      this.getOpenid()
     } else {
       //用户按了拒绝按钮
       Taro.showModal({
@@ -50,8 +52,8 @@ export default class Index extends Component {
     wx.cloud.callFunction({
       name: "getOpenid",
       complete: (res) => {
-        console.log("云函数获取到的openid: ", res.result.openId);
-        var openid = res.result.openId;
+        console.log(res);
+        var openid = res.result.openid;
         this.setState({
           openid: openid,
         });
@@ -60,11 +62,11 @@ export default class Index extends Component {
   };
 
   render() {
-    const { canIUse,isHide } = this.state;
+    const { canIUse, isHide } = this.state;
     return (
       <Fragment>
         {canIUse ? (
-          <View className="login" style={isHide?{"display":"none"}:""}>
+          <View className="login" style={isHide ? { display: "none" } : ""}>
             <View className="login-container">
               <View className="login-avatar">
                 <open-data type="userAvatarUrl"></open-data>
