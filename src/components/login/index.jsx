@@ -31,7 +31,6 @@ export default class Index extends Component {
       this.setState({
         isHide: true,
       });
-      this.getList();
     } else {
       //用户按了拒绝按钮
       Taro.showModal({
@@ -53,7 +52,7 @@ export default class Index extends Component {
     wx.cloud.callFunction({
       name: "getOpenid",
       complete: (res) => {
-        console.log(res);
+        // console.log(res);
         var openid = res.result.openid;
         this.setState({
           openid: openid,
@@ -62,20 +61,13 @@ export default class Index extends Component {
     });
   };
 
-  getList=()=>{
-    wx.cloud.callFunction({
-      name: "getList",
-      complete: (res) => {
-        console.log(res);
-      },
-    });
-  }
+
 
   render() {
     const { canIUse, isHide } = this.state;
     return (
       <Fragment>
-        {canIUse ? (
+        {/* {canIUse ? (
           <View className="login" style={isHide ? { display: "none" } : ""}>
             <View className="login-container">
               <View className="login-avatar">
@@ -96,7 +88,7 @@ export default class Index extends Component {
           </View>
         ) : (
           <View>请升级微信版本</View>
-        )}
+        )} */}
       </Fragment>
     );
   }

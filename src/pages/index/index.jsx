@@ -3,7 +3,7 @@ import { ScrollView, View, Text, Button } from "@tarojs/components";
 import "./index.less";
 import Search from "./Search";
 import Tabbar from "../../components/tabbar/index";
-import Login from "../../components/login/index"
+import Login from "../../components/login/index";
 
 export default class Index extends Component {
   config = {
@@ -14,8 +14,8 @@ export default class Index extends Component {
     super(props);
     this.state = {
       userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+      hasUserInfo: false,
+      canIUse: wx.canIUse("button.open-type.getUserInfo"),
       listData: [
         {
           id: 0,
@@ -240,10 +240,25 @@ export default class Index extends Component {
         }
       },
     });
+    this.getList();
   }
 
   onGetUserInfo = (e) => {
     console.log(e);
+  };
+
+  getList = () => {
+    wx.cloud
+      .callFunction({
+        name: "getList",
+        data: { database: "dataList", condition: {} },
+      })
+      .then((res) => {
+        console.log(res.result.data);
+        this.setState({
+          listData:[...res.result.data]
+        })
+      });
   };
 
   componentWillUnmount() {}
@@ -296,12 +311,8 @@ export default class Index extends Component {
             })}
           </View>
         </ScrollView>
-        <Button
-            open-type="getUserInfo"
-            onGetUserInfo={(userInfo) => this.onGetUserInfo(userInfo)}
-          >授权</Button>
         <Tabbar />
-        <Login/>
+        <Login />
       </Fragment>
     );
   }
