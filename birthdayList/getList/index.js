@@ -4,6 +4,14 @@ const rp=require("request-promise")
 
 cloud.init()
 const db=wx.cloud.database()
+db.collection('dataList').get({
+  success:res=>{
+    console.log(res);
+  },
+  fail:err=>{
+    console.log(err);
+  }
+})
 
 // 云函数入口函数
 exports.main = async (event, context) => {

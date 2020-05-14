@@ -31,6 +31,7 @@ export default class Index extends Component {
       this.setState({
         isHide: true,
       });
+      this.getList();
     } else {
       //用户按了拒绝按钮
       Taro.showModal({
@@ -60,6 +61,15 @@ export default class Index extends Component {
       },
     });
   };
+
+  getList=()=>{
+    wx.cloud.callFunction({
+      name: "getList",
+      complete: (res) => {
+        console.log(res);
+      },
+    });
+  }
 
   render() {
     const { canIUse, isHide } = this.state;

@@ -3,7 +3,7 @@ import { ScrollView, View, Text, Button } from "@tarojs/components";
 import "./index.less";
 import Search from "./Search";
 import Tabbar from "../../components/tabbar/index";
-import Login from "../../components/login/index";
+import Login from "../../components/login/index"
 
 export default class Index extends Component {
   config = {
@@ -13,6 +13,9 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
       listData: [
         {
           id: 0,
@@ -225,7 +228,23 @@ export default class Index extends Component {
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting["scope.userInfo"]) {
+          Taro.getUserInfo({
+            success: function (res) {
+              console.log(res.userInfo);
+            },
+          });
+        }
+      },
+    });
+  }
+
+  onGetUserInfo = (e) => {
+    console.log(e);
+  };
 
   componentWillUnmount() {}
 
@@ -255,7 +274,6 @@ export default class Index extends Component {
     const { listData, canIUse } = this.state;
     return (
       <Fragment>
-        <Login />
         <ScrollView
           className="index"
           scrollY
@@ -278,7 +296,12 @@ export default class Index extends Component {
             })}
           </View>
         </ScrollView>
+        <Button
+            open-type="getUserInfo"
+            onGetUserInfo={(userInfo) => this.onGetUserInfo(userInfo)}
+          >授权</Button>
         <Tabbar />
+        <Login/>
       </Fragment>
     );
   }
