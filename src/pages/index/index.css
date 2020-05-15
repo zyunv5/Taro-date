@@ -28,6 +28,9 @@
 .index .index-list .list-item .item-name {
   font-size: 30px;
 }
-.index .index-list .list-item .item-date {
+.index .index-list .list-item .item-term {
   font-size: 32px;
+}
+.index .index-list .list-item .item-cycle {
+  font-size: 30px;
 }

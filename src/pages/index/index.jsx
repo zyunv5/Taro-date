@@ -4,6 +4,7 @@ import "./index.less";
 import Search from "./Search";
 import Tabbar from "../../components/tabbar/index";
 import Login from "../../components/login/index";
+import { TimeLine } from "../../utils/timeLine";
 
 export default class Index extends Component {
   config = {
@@ -34,7 +35,7 @@ export default class Index extends Component {
           name: "爸爸",
           sex: 1,
           term: "15",
-          cycle: "",
+          cycle: "20",
           avatar: "",
           solarCalendar: "",
           lunarCalendar: "",
@@ -45,7 +46,7 @@ export default class Index extends Component {
           name: "妻子",
           sex: 0,
           term: "25",
-          cycle: "",
+          cycle: "30",
           avatar: "",
           solarCalendar: "",
           lunarCalendar: "",
@@ -254,10 +255,11 @@ export default class Index extends Component {
         data: { database: "dataList", condition: {} },
       })
       .then((res) => {
-        console.log(res.result.data);
+        const newData = TimeLine(res.result.data);
+        console.log(newData);
         this.setState({
-          listData:[...res.result.data]
-        })
+          listData: [...newData],
+        });
       });
   };
 
@@ -305,7 +307,8 @@ export default class Index extends Component {
                   onClick={() => this.seeDetail(item)}
                 >
                   <View className="item-name">{item.name}</View>
-                  <View className="item-date">{item.term}</View>
+                  <View className="item-cycle">距离{item.cycle}岁</View>
+                  <View className="item-term">还有{item.term}天</View>
                 </View>
               );
             })}

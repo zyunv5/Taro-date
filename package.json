@@ -41,6 +41,7 @@
 		"@tarojs/taro-swan": "1.3.40",
 		"@tarojs/taro-tt": "1.3.40",
 		"@tarojs/taro-weapp": "1.3.40",
+		"dayjs": "^1.8.27",
 		"nerv-devtools": "^1.5.6",
 		"nervjs": "^1.5.6",
 		"taro-ui": "^2.3.3"
