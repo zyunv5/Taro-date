@@ -29,8 +29,29 @@ export default class Index extends Component {
       type: event.detail.value,
     });
   };
-  onChangeImg = (files, operationType, index) => {
-    console.log(files, operationType, index);
+  onChangeImg = (files) => {
+    console.log(files);
+    // wx.chooseImage({
+    // sizeType: ["original", "compressed"],
+    // sourceType: ["album", "camera"],
+    // success(res) {
+    let extension = files[0].url.split(".").pop();
+    wx.cloud.uploadFile({
+      //这一段是上传到云数据中的
+      cloudPath: `file/${new Date().getTime()}.${extension}`,
+      filePath: files[0].url, //这个就是图片的存储路径
+      success: (res) => {
+        console.log("[上传图片]成功:", res.fileID);
+        this.setState({
+          files: this.state.files.concat(res.fileID),
+        });
+      },
+      fail: (err) => {
+        console.log(err);
+      },
+    });
+    // },
+    // });
   };
   // 点击图片触发的回调
   onImageClick(index, file) {
@@ -70,7 +91,7 @@ export default class Index extends Component {
       });
   };
   render() {
-    const { type, dateSel } = this.state;
+    const { type, dateSel, files } = this.state;
     return (
       <View className="index">
         <RadioGroup
@@ -87,8 +108,8 @@ export default class Index extends Component {
         <View className="index-avatar">
           <AtImagePicker
             multiple={false}
-            files={this.state.files}
-            onChange={() => this.onChangeImg()}
+            files={files}
+            onChange={(files) => this.onChangeImg(files)}
             mode="top"
             length={1}
             className="avatar"

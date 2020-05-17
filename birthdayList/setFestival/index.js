@@ -9,7 +9,7 @@ exports.main = async (event, context) => {
   const {database,condition}=event;
   console.log(event);
   try {
-    return await db.collection(database).where(condition).get()
+    return await db.collection(database).add(condition)
   } catch (error) {
     console.log(error);
   }

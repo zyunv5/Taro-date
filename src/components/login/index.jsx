@@ -57,6 +57,7 @@ export default class Index extends Component {
         this.setState({
           openid: openid,
         });
+        wx.setStorageSync('openid', openid)
       },
     });
   };

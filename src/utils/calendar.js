@@ -724,7 +724,29 @@ const oldDays = [
   "三十",
 ];
 
+const oldMonth=[
+  "正月",'二月','三月','四月','五月','六月','七月','八月','九月','十月','冬月','腊月'
+]
+
+const oldMonthToNewMonth=function(x){
+  for(let i=0;i<oldMonth.length;i++){
+    if(oldMonth[i]===x){
+      return i+1
+    }
+  }
+}
+
+const oldDayToNewDay=function(x){
+  for(let i=0;i<oldDays.length;i++){
+    if(oldDays[i]===x){
+      return i+1
+    }
+  }
+}
+
 module.exports={
   calendarFunc,
-  oldDays
+  oldDays,
+  oldMonthToNewMonth,
+  oldDayToNewDay
 }
