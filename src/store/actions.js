@@ -1,26 +1,10 @@
 import { TimeLine } from "../utils/timeLine";
-import { ADD, MINUS, GET_LIST } from "./constants";
+import {GET_LIST,CHANGE_TABBAR,SEARCH_KEY_WORDS } from "./constants";
 
-export const add = () => {
-  return {
-    type: ADD,
-  };
-};
-export const minus = () => {
-  return {
-    type: MINUS,
-  };
-};
+//tabar更改路由
+export const changeRouter=(bool)=>({type: CHANGE_TABBAR, bool})
 
-// 异步的 action
-export function asyncAdd() {
-  return (dispatch) => {
-    setTimeout(() => {
-      dispatch(add());
-    }, 2000);
-  };
-}
-
+//index和mine获取列表数据
 export function asyncGetList() {
   return (dispatch) => {
     wx.cloud
@@ -34,5 +18,20 @@ export function asyncGetList() {
       });
   };
 }
-
+//同步更新数据
 export const getList = (data) => ({ type: GET_LIST, data });
+
+//index页面的模糊搜索
+export function asyncSearchKeyWords(keyWords) {
+  return (dispatch) => {
+    wx.cloud
+      .callFunction({
+        name: "searchKeyWords",
+        data: { database: "dataList", keyWords:keyWords },
+      })
+      .then((res) => {
+        const newData = TimeLine(res.result.data);
+        dispatch(getList(newData));
+      });
+  };
+}

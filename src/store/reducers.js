@@ -1,36 +1,41 @@
 import { combineReducers } from "redux";
-import { ADD, MINUS, GET_LIST } from "./constants";
-const INITIAL_STATE = {
-  num: 0,
-};
-function counter(state = INITIAL_STATE, action) {
+import {GET_LIST,CHANGE_TABBAR,SEARCH_KEY_WORDS } from "./constants";
+
+//tabar更改路由
+const initRouter = 0;
+function routerSelect(state = initRouter, action) {
   switch (action.type) {
-    case ADD:
-      return {
-        ...state,
-        num: state.num + 1,
-      };
-    case MINUS:
-      return {
-        ...state,
-        num: state.num - 1,
-      };
+    case CHANGE_TABBAR:
+      return action.bool;
     default:
       return state;
   }
 }
 
+//index和mine获取列表数据
 const initList = [];
 function list(state = initList, action) {
   switch (action.type) {
     case GET_LIST:
-      return [...state, ...action.data];
+      return [...action.data];
+    default:
+      return state;
+  }
+}
+
+//index页面的模糊搜索
+const initSearch=""
+function searchKeyWords(state = initSearch, action) {
+  switch (action.type) {
+    case SEARCH_KEY_WORDS:
+      return [...action.data];
     default:
       return state;
   }
 }
 
 export default combineReducers({
-  counter,
   list,
+  routerSelect,
+  searchKeyWords
 });

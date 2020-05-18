@@ -26,9 +26,11 @@
   border-bottom: 1px solid green;
 }
 .index .index-list .list-item .item-name {
+  width: 80px;
   font-size: 30px;
 }
 .index .index-list .list-item .item-term {
+  width: 200px;
   font-size: 32px;
 }
 .index .index-list .list-item .item-cycle {

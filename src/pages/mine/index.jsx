@@ -1,9 +1,23 @@
 import Taro, { Component, Fragment } from "@tarojs/taro";
-import { View, Text, Image } from "@tarojs/components";
+import { View, Text, Image,ScrollView } from "@tarojs/components";
 import { AtAccordion, AtList, AtListItem } from "taro-ui";
 import "./index.less";
 import Tabbar from "../../components/tabbar/index";
+import { connect } from "@tarojs/redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../../store/actions";
 
+function mapStateToProps(state) {
+  return {
+    list: state.list,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(Actions, dispatch),
+  };
+}
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "我的",
@@ -11,8 +25,8 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      birthdayOpen: true,
-      commemorateOpen: true,
+      birthdayOpen: false,
+      commemorateOpen: false,
       birthdayList: [
         {
           title: "标题文字1",
@@ -42,19 +56,7 @@ export default class Index extends Component {
 
   componentWillMount() {}
 
-  componentDidMount() {
-    this.getList();
-  }
-  getList = () => {
-    wx.cloud
-      .callFunction({
-        name: "getList",
-        data: { database: "dataList", condition: {} },
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
-  };
+  componentDidMount() {}
 
   componentWillUnmount() {}
 
@@ -63,6 +65,7 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    const { list } = this.props;
     return (
       <Fragment>
         <View className="mine">
@@ -70,7 +73,7 @@ export default class Index extends Component {
             <Image className="info-portrait" />
             <View className="info-name">BurNIng</View>
           </View>
-          <View className="mine-list">
+          <ScrollView scrollY className="mine-list">
             <AtAccordion
               className="list-item"
               open={this.state.birthdayOpen}
@@ -79,15 +82,18 @@ export default class Index extends Component {
               title="生日列表"
             >
               <AtList hasBorder={false}>
-                {this.state.birthdayList.map((item) => {
-                  return (
-                    <AtListItem
-                      key={item}
-                      title={item.title}
-                      thumb={item.thumb}
-                    />
-                  );
-                })}
+                {list &&
+                  list.map((item) => {
+                    if (item.type === 0) {
+                      return (
+                        <AtListItem
+                          key={item}
+                          title={item.name}
+                          thumb={item.avatar}
+                        />
+                      );
+                    }
+                  })}
               </AtList>
             </AtAccordion>
             <AtAccordion
@@ -109,7 +115,7 @@ export default class Index extends Component {
                 })}
               </AtList>
             </AtAccordion>
-          </View>
+          </ScrollView>
         </View>
         <Tabbar />
       </Fragment>

@@ -1,7 +1,20 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Text, Input,Image } from "@tarojs/components";
-import searchIcon from "../../../assets/images/search.png"
-import "./index.css"
+import { View, Text, Input, Image } from "@tarojs/components";
+import searchIcon from "../../../assets/images/search.png";
+import "./index.css";
+import { connect } from "@tarojs/redux";
+import { bindActionCreators } from 'redux'
+import * as Actions from '../../../store/actions'
+
+function mapStateToProps(state) {
+  return {};
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(Actions, dispatch),
+  };
+}
+@connect(mapStateToProps, mapDispatchToProps)
 
 export default class Index extends Component {
   constructor(props) {
@@ -21,9 +34,19 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  changeInput=(e)=>{
-    console.log(e.detail.value);
-  }
+  changeInput = (e) => {
+    if(e.detail.value===""){//当删除为空时，重新拉取数据
+      this.props.asyncGetList()
+    }
+    this.setState({
+      inputValue: e.detail.value,
+    });
+  };
+  //模糊搜索
+  searchKeyWords = () => {
+    let keyWords = this.state.inputValue;
+    this.props.asyncSearchKeyWords(keyWords)
+  };
 
   render() {
     const { inputValue } = this.state;
@@ -35,9 +58,14 @@ export default class Index extends Component {
           value={inputValue}
           placeholder="请输入要搜索的名称"
           confirmType="search"
-          onInput={(e)=>this.changeInput(e)}
+          onInput={(e) => this.changeInput(e)}
         />
-        <Image className="search-icon" src={searchIcon} mode="scaleToFill"/>
+        <Image
+          className="search-icon"
+          src={searchIcon}
+          mode="scaleToFill"
+          onClick={() => this.searchKeyWords()}
+        />
       </View>
     );
   }

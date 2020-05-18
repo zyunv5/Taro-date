@@ -6,13 +6,24 @@ import List from "../../assets/images/list.png";
 import Mine from "../../assets/images/mine.png";
 import ListSelected from "../../assets/images/list-selected.png";
 import MineSelected from "../../assets/images/mine-selected.png";
+import { connect } from "@tarojs/redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../../store/actions";
 
+function mapStateToProps(state) {
+  return {
+    routerSelect: state.routerSelect,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(Actions, dispatch),
+  };
+}
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Index extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentRoute: 0, //0代表列表 1代表我的
-    };
   }
   componentWillMount() {}
 
@@ -58,7 +69,7 @@ export default class Index extends Component {
   goRouteList = () => {
     const params = this.getCurrentRoutePage();
     if (params !== "pages/index/index") {
-      this.setState({ currentRoute: 0 });
+      this.props.changeRouter(0);
       Taro.navigateTo({ url: "/pages/index/index" })
         .then((res) => {
           console.log(res);
@@ -77,8 +88,7 @@ export default class Index extends Component {
   goRouteMine = () => {
     const params = this.getCurrentRoutePage();
     if (params !== "pages/mine/index") {
-      console.log(this);
-      this.setState({ currentRoute: 1 });
+      this.props.changeRouter(1);
       Taro.navigateTo({ url: "/pages/mine/index" })
         .then((res) => {
           console.log(res);
@@ -91,17 +101,17 @@ export default class Index extends Component {
   };
 
   render() {
-    const { currentRoute } = this.state;
+    const { routerSelect } = this.props;
     return (
       <View className="footer">
         <View className="footer-list" onClick={() => this.goRouteList()}>
           <Image
             className="list-img"
-            src={currentRoute === 0 ? ListSelected : List}
+            src={routerSelect === 0 ? ListSelected : List}
             mode="aspectFit"
             alt=""
           />
-          <Text style={currentRoute === 0 ? { color: "#18ba4dff" } : null}>
+          <Text style={routerSelect === 0 ? { color: "#18ba4dff" } : null}>
             列表
           </Text>
         </View>
@@ -111,11 +121,13 @@ export default class Index extends Component {
         <View className="footer-mine" onClick={() => this.goRouteMine()}>
           <Image
             className="mine-img"
-            src={currentRoute === 1 ? MineSelected : Mine}
+            src={routerSelect === 1 ? MineSelected : Mine}
             mode="aspectFit"
             alt=""
           />
-          <Text>我的</Text>
+          <Text style={routerSelect === 1 ? { color: "#18ba4dff" } : null}>
+            我的
+          </Text>
         </View>
       </View>
     );

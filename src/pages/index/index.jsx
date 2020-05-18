@@ -12,7 +12,6 @@ import { TimeLine } from "../../utils/timeLine";
 
 function mapStateToProps(state) {
   return {
-    counter: state.counter,
     list:state.list
   };
 }
@@ -119,7 +118,6 @@ export default class Index extends Component {
   };
 
   render() {
-    const { canIUse } = this.state;
     const {list}=this.props
     return (
       <Fragment>

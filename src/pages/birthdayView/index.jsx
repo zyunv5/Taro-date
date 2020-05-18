@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Image } from "@tarojs/components";
+import { View, Image, Picker } from "@tarojs/components";
 import "./index.css";
 
 export default class Index extends Component {
@@ -7,12 +7,14 @@ export default class Index extends Component {
     super(props);
     this.state = {
       name: "",
-      sex:"",
+      sex: "",
       term: "",
       cycle: "",
       avatar: "",
       solarCalendar: "",
       lunarCalendar: "",
+      selector: ["先生", "女士"],
+      selectorChecked: "先生",
     };
   }
   componentWillMount() {
@@ -22,10 +24,9 @@ export default class Index extends Component {
     Taro.setNavigationBarTitle({
       title: params.name + "的生日",
     });
-
     this.setState({
       name: params.name,
-      sex:params.sex,
+      sex: params.sex,
       term: params.term,
       cycle: params.cycle,
       avatar: params.avatar,
@@ -42,18 +43,48 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
+  saveInfo = () => {};
+  cancelInfo = () => {};
+  removeInfo = () => {};
+  onChange = (e) => {
+    this.setState({
+      selectorChecked: this.state.selector[e.detail.value],
+    });
+  };
+
   render() {
-    const { name,sex, term, avatar, solarCalendar, lunarCalendar } = this.state;
+    const {
+      name,
+      sex,
+      term,
+      avatar,
+      solarCalendar,
+      lunarCalendar,
+    } = this.state;
     return (
-      <View className={`index ${sex===0?"bg-female":"bg-male"}`}>
+      <View className={`index ${sex === 0 ? "bg-female" : "bg-male"}`}>
         <Image className="index-avatar" src={avatar} mode="aspectFit" />
         <View className="index-info">
           <View className="info-item">{name}</View>
+          <View className="">
+            <Picker
+              mode="selector"
+              range={this.state.selector}
+              onChange={this.onChange}
+            >
+              <View className="picker">{this.state.selectorChecked}</View>
+            </Picker>
+          </View>
           <View className="info-item">
             还有{term}天,就{cycle}岁了
           </View>
           <View className="info-item">
             生日是:{solarCalendar ? solarCalendar : lunarCalendar}
+          </View>
+          <View>
+            <View onClick={() => this.saveInfo()}>保存</View>
+            <View onClick={() => this.cancelInfo()}>取消</View>
+            <View onClick={() => this.removeInfo()}>删除</View>
           </View>
         </View>
       </View>

@@ -52,7 +52,6 @@ export default class Index extends Component {
     wx.cloud.callFunction({
       name: "getOpenid",
       complete: (res) => {
-        // console.log(res);
         var openid = res.result.openid;
         this.setState({
           openid: openid,
@@ -61,8 +60,6 @@ export default class Index extends Component {
       },
     });
   };
-
-
 
   render() {
     const { canIUse, isHide } = this.state;
