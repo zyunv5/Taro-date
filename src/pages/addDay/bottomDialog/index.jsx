@@ -16,7 +16,9 @@ export default class Index extends Component {
   }
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+
+  }
 
   componentWillUnmount() {}
 
@@ -40,14 +42,14 @@ export default class Index extends Component {
       this.setState({
         date: `${year}-${month}-${day}`,
       });
-      this.props.changeDateValue(`${year}-${month}-${day}`);
+      this.props.changeSolarDate([year,month,day]);
     } else {
       const [year, month, day] = this.refs.lunar.lunarDate();
       console.log(this.refs.lunar.lunarDate());
       this.setState({
         date: `${year}-${month}-${day}`,
       });
-      this.props.changeDateValue(`${year}-${month}月-${day}`);
+      this.props.changeLunarDate([year,month,day]);
     }
     this.hideDialog();
   };

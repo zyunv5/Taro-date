@@ -14,12 +14,25 @@ export default class Index extends Component {
     this.state = {
       type: 0,
       files: [],
-      inputValue: "",
-      dateSel: "",
+      name: "",
+      solarDate: [],
+      lunarDate: [],
+      openid: "",
+      sex: "0",
+      dataSelect: "",
     };
   }
   componentWillMount() {}
-  componentDidMount() {}
+  componentDidMount() {
+    wx.getStorageSync({
+      key: "openid",
+      success(res) {
+        this.setState({
+          openid: res.data,
+        });
+      },
+    });
+  }
   componentWillUnmount() {}
   componentDidShow() {}
   componentDidHide() {}
@@ -29,42 +42,55 @@ export default class Index extends Component {
       type: event.detail.value,
     });
   };
+  sexChange = (event) => {
+    this.setState({
+      sex: event.detail.value,
+    });
+  };
   onChangeImg = (files) => {
     console.log(files);
-    // wx.chooseImage({
-    // sizeType: ["original", "compressed"],
-    // sourceType: ["album", "camera"],
-    // success(res) {
-    let extension = files[0].url.split(".").pop();
-    wx.cloud.uploadFile({
-      //这一段是上传到云数据中的
-      cloudPath: `file/${new Date().getTime()}.${extension}`,
-      filePath: files[0].url, //这个就是图片的存储路径
-      success: (res) => {
-        console.log("[上传图片]成功:", res.fileID);
-        this.setState({
-          files: this.state.files.concat(res.fileID),
-        });
-      },
-      fail: (err) => {
-        console.log(err);
-      },
-    });
-    // },
-    // });
+    if (files.length === 0) {
+      this.setState({
+        files: [],
+      });
+    } else {
+      let that = this;
+      let extension = files[0].url.split(".").pop();
+      wx.cloud.uploadFile({
+        cloudPath: `file/${new Date().getTime()}.${extension}`,
+        filePath: files[0].url, //这个就是图片的存储路径
+        success: (res) => {
+          console.log("[上传图片]成功:", res.fileID);
+          this.setState({
+            files: this.state.files.concat({ url: res.fileID }),
+          });
+          // wx.cloud.callFunction({
+          //   name: "uploadImg",
+          //   data: { database: "imgData", condition: {
+          //     userId:wx.getStorageSync('openid'),
+          //     imgUrl:res.fileID
+          //   } },
+          // }).then(res=>{
+          //   console.log(res)
+          // }).catch(err=>console.log(err));
+        },
+        fail: (err) => {
+          console.log(err);
+        },
+      });
+    }
   };
-  // 点击图片触发的回调
-  onImageClick(index, file) {
-    console.log(index, file);
-  }
   //选择图片失败
   onFail(mes) {
     console.log(mes);
   }
+  onImageClick(index, file) {
+    console.log(index, file);
+  }
   //用户输入
   nameInput = (e) => {
     this.setState({
-      inputValue: e.detail.value,
+      name: e.detail.value,
     });
   };
   //显示时间选择器
@@ -72,13 +98,55 @@ export default class Index extends Component {
     this.refs.getDialog.showDialog();
   };
   //改变时间
-  changeDateValue = (date) => {
+  changeLunarDate = (date) => {
     this.setState({
-      dateSel: date,
+      lunarDate: date,
+      dataSelect: `${date[0]}-${date[1]}-${date[2]}`,
+    });
+  };
+  changeSolarDate = (date) => {
+    this.setState({
+      solarDate: date,
+      dataSelect: `${date[0]}-${date[1]}-${date[2]}`,
     });
   };
   //保存数据
-  confirm = () => {};
+  confirm = () => {
+    let avatar = null;
+    this.state.files.length > 0
+      ? (avatar = this.state.files[0].url)
+      : (avatar = "");
+    wx.cloud
+      .callFunction({
+        name: "addFestival",
+        data: {
+          database: "dataList",
+          condition: {
+            userId: wx.getStorageSync("openid"),
+            avatar: avatar,
+            name: this.state.name,
+            sex: this.state.sex,
+            solarCalendar: this.state.solarDate, //阳历生日
+            lunarCalendar: this.state.lunarDate, //阴历生日
+            type: this.state.type, //0是生日 1是纪念日
+          },
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.errMsg === "fail") {
+        } else {
+          Taro.switchTab({ url: "/pages/index/index" })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   //取消保存
   cancel = () => {
     Taro.navigateTo({ url: "pages/index/index" })
@@ -91,7 +159,7 @@ export default class Index extends Component {
       });
   };
   render() {
-    const { type, dateSel, files } = this.state;
+    const { type, solarDate, lunarDate, files, dataSelect } = this.state;
     return (
       <View className="index">
         <RadioGroup
@@ -110,9 +178,10 @@ export default class Index extends Component {
             multiple={false}
             files={files}
             onChange={(files) => this.onChangeImg(files)}
-            mode="top"
+            mode="aspectFit"
             length={1}
             className="avatar"
+            onImageClick={this.onImageClick.bind(this)}
           />
         </View>
         <View className="index-name">
@@ -124,14 +193,25 @@ export default class Index extends Component {
           <Input
             className="name-input"
             type="text"
-            value={inputValue}
+            value={name}
             onInput={(e) => this.nameInput(e)}
           />
         </View>
+        <RadioGroup
+          class="index-radio-group"
+          onChange={(event) => this.sexChange(event)}
+        >
+          <Radio value="0" checked>
+            女
+          </Radio>
+          <Radio value="1" className="radio-commemorate">
+            男
+          </Radio>
+        </RadioGroup>
         <View className="index-date">
           <View className="date-label">日期：</View>
           <View className="date-select" onClick={() => this.showDialog()}>
-            {dateSel}
+            {dataSelect}
           </View>
         </View>
         <View className="index-submit">
@@ -142,7 +222,11 @@ export default class Index extends Component {
             取消
           </View>
         </View>
-        <BottomDialog ref="getDialog" changeDateValue={this.changeDateValue} />
+        <BottomDialog
+          ref="getDialog"
+          changeLunarDate={this.changeLunarDate}
+          changeSolarDate={this.changeSolarDate}
+        />
       </View>
     );
   }

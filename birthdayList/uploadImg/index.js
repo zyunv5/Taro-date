@@ -1,17 +1,27 @@
 const cloud = require('wx-server-sdk')
 const fs = require('fs')
 const path = require('path')
+
+cloud.init()
 const db=cloud.database()
 
-cloud.init({
-  env: "test-50v2n"
-})
 
 exports.main = async (event, context) => {
-    console.log(event);
-//   const fileStream = fs.createReadStream(path.join(__dirname, 'demo.jpg'))
-//   return await cloud.uploadFile({
-//     cloudPath: 'demo.jpg',
-//     fileContent: fileStream,
-//   })
+  const {database,condition}=event;
+  console.log(database,condition)
+  try {
+    let isUser=await db.collection(database).where({userId:condition.userId}).get()
+    console.log(isUser)
+    if(isUser.data.length>0){
+      return await db.collection(database).where({userId:condition.userId}).update({
+        data:{
+          imgUrl:_.set(condition.imgUrl)
+        }
+      })
+    }else{
+     return await db.collection(database).add({data:condition})
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

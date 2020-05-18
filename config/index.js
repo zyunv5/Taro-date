@@ -29,7 +29,7 @@ const config = {
   },
   defineConstants: {},
   copy: {
-    patterns: [{ from: "sitemap.json", to: "/dist/weapp/sitemap.json" }],
+    patterns: [{ from: "sitemap.json", to: "dist/sitemap.json" }],
     options: {},
   },
   weapp: {

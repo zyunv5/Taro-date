@@ -1050,6 +1050,24 @@
   dependencies:
     uglify-js "^3.3.24"
 
+"@tarojs/redux-h5@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@tarojs/redux-h5/-/redux-h5-2.2.4.tgz#cd030cf933b47e6678ec1465d32b5c11ee6165d4"
+  integrity sha512-Al7owJcicqsdHSBktKcZC5XsbCCBJIK3YoEodIXYHMwurBCsCpT9xmX9zGSxFW39Z4HnCIN0sHJfjYiAcv1/Zw==
+  dependencies:
+    hoist-non-react-statics "^2.5.0"
+    invariant "^2.2.4"
+    loose-envify "^1.1.0"
+    prop-types "^15.6.1"
+
+"@tarojs/redux@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@tarojs/redux/-/redux-2.2.4.tgz#8b60ddf0121740d584bb7daedd9a1dc85d4ae49d"
+  integrity sha512-c1NmMD92YXACfvJ805sXP+TolCm/6qb/St7NJn316f19n/rLHTYQIfxZ8EMwanKjzNH0vusIZgKz5QSNuf4M4Q==
+  dependencies:
+    "@tarojs/taro" "^2.2.4"
+    "@tarojs/utils" "^2.2.4"
+
 "@tarojs/router@1.3.40":
   version "1.3.40"
   resolved "http://r.cnpmjs.org/@tarojs/router/download/@tarojs/router-1.3.40.tgz#cd12e425c1128d4603ce17b0a13558c295b647fe"
@@ -1163,10 +1181,22 @@
   dependencies:
     "@tarojs/utils" "1.3.40"
 
+"@tarojs/taro@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@tarojs/taro/-/taro-2.2.4.tgz#8981d6be89d58d351f55951aed6619e09a8a243d"
+  integrity sha512-hpClP8itQkb3Ue+SyMf9+eH0PbnakEkBb1oZZAr/dTHLFh1XvCWIPTMIfAkY2WSpBRJH4hAobK1S2/94/e7Pkg==
+  dependencies:
+    "@tarojs/utils" "^2.2.4"
+
 "@tarojs/utils@1.3.40":
   version "1.3.40"
   resolved "http://r.cnpmjs.org/@tarojs/utils/download/@tarojs/utils-1.3.40.tgz#5ab3071e8d33cb6fa40dc98b5eb07bcf25c362ef"
   integrity sha1-WrMHHo0zy2+kDcmLXrB7zyXDYu8=
+
+"@tarojs/utils@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@tarojs/utils/-/utils-2.2.4.tgz#9a4b57b0fc5c9b850f96f97501d3b3442642466a"
+  integrity sha512-Nt4Zvb+S6XTEPsy/wrX+3Xtj7zi2fN3djQuBAyI5ITjgQ+DqRGnxE3TY4d7xamWcTtePC5Y1RepIlgbJfs+WDA==
 
 "@tarojs/webpack-runner@1.3.40":
   version "1.3.40"
@@ -3596,6 +3626,11 @@ decode-uri-component@^0.2.0:
   resolved "http://r.cnpmjs.org/decode-uri-component/download/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
 
+deep-diff@^0.3.5:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.8.tgz#c01de63efb0eec9798801d40c7e0dae25b582c84"
+  integrity sha1-wB3mPvsO7JeYgB1Ax+Da4ltYLIQ=
+
 deep-equal@^1.0.1:
   version "1.1.1"
   resolved "http://r.cnpmjs.org/deep-equal/download/deep-equal-1.1.1.tgz#b5c98c942ceffaf7cb051e24e1434a25a2e6076a"
@@ -5138,6 +5173,11 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
+hoist-non-react-statics@^2.5.0:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
+  integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "http://r.cnpmjs.org/home-or-tmp/download/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -6320,7 +6360,7 @@ longest-streak@^2.0.1:
   resolved "http://r.cnpmjs.org/longest-streak/download/longest-streak-2.0.4.tgz#b8599957da5b5dab64dee3fe316fa774597d90e4"
   integrity sha1-uFmZV9pbXatk3uP+MW+ndFl9kOQ=
 
-loose-envify@^1.0.0, loose-envify@^1.4.0:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "http://r.cnpmjs.org/loose-envify/download/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha1-ce5R+nvkyuwaY4OffmgtgTLTDK8=
@@ -8176,6 +8216,26 @@ redent@^2.0.0:
     indent-string "^3.0.0"
     strip-indent "^2.0.0"
 
+redux-logger@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
+  integrity sha1-91VZZvMJjzyIYExEnPC69XeCdL8=
+  dependencies:
+    deep-diff "^0.3.5"
+
+redux-thunk@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+  integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
+
+redux@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
+  integrity sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w==
+  dependencies:
+    loose-envify "^1.4.0"
+    symbol-observable "^1.2.0"
+
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
   resolved "http://r.cnpmjs.org/regenerate-unicode-properties/download/regenerate-unicode-properties-8.2.0.tgz#e5de7111d655e7ba60c057dbe9ff37c87e65cdec"
@@ -9417,6 +9477,11 @@ swiper@4.4.2:
   dependencies:
     dom7 "^2.1.2"
     ssr-window "^1.0.1"
+
+symbol-observable@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 table@^4.0.1:
   version "4.0.3"

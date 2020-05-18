@@ -19,20 +19,10 @@ export default class Index extends Component {
           thumb:
             "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
         },
-        {
-          title: "标题文字2",
-          thumb:
-            "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
-        },
       ],
       commemorateList: [
         {
           title: "标题文字1",
-          thumb:
-            "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
-        },
-        {
-          title: "标题文字2",
           thumb:
             "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
         },
@@ -52,7 +42,19 @@ export default class Index extends Component {
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getList();
+  }
+  getList = () => {
+    wx.cloud
+      .callFunction({
+        name: "getList",
+        data: { database: "dataList", condition: {} },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
 
   componentWillUnmount() {}
 

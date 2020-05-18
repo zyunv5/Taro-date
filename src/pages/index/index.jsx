@@ -1,10 +1,27 @@
 import Taro, { Component, Fragment } from "@tarojs/taro";
 import { ScrollView, View, Text, Button } from "@tarojs/components";
+import { connect } from "@tarojs/redux";
+import { bindActionCreators } from 'redux'
+import * as Actions from '../../store/actions'
 import "./index.less";
 import Search from "./Search";
 import Tabbar from "../../components/tabbar/index";
 import Login from "../../components/login/index";
 import { TimeLine } from "../../utils/timeLine";
+
+
+function mapStateToProps(state) {
+  return {
+    counter: state.counter,
+    list:state.list
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(Actions, dispatch),
+  };
+}
+@connect(mapStateToProps, mapDispatchToProps)
 
 export default class Index extends Component {
   config = {
@@ -17,213 +34,42 @@ export default class Index extends Component {
       userInfo: {},
       hasUserInfo: false,
       canIUse: wx.canIUse("button.open-type.getUserInfo"),
-      listData: [
-        {
-          id: 0,
-          name: "妈妈", //名称
-          sex: 0, //0女 1男 2默认不填
-          term: "5", //还有几天
-          cycle: "40", //多少周年
-          avatar:
-            "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
-          solarCalendar: "1971-3-28", //阳历
-          lunarCalendar: "", //阴历
-          type: 0, //0是生日 1是纪念日
-        },
-        {
-          id: 1,
-          name: "爸爸",
-          sex: 1,
-          term: "15",
-          cycle: "20",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 2,
-          name: "妻子",
-          sex: 0,
-          term: "25",
-          cycle: "30",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 3,
-          name: "来京",
-          sex: 2,
-          term: "35",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "2017-7-13",
-          lunarCalendar: "",
-          type: 1,
-        },
-        {
-          id: 4,
-          name: "结婚",
-          term: "45",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 1,
-        },
-        {
-          id: 5,
-          name: "妈妈",
-          term: "55",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 6,
-          name: "爸爸",
-          term: "65",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 7,
-          name: "妻子",
-          term: "75",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 8,
-          name: "来京",
-          term: "85",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 1,
-        },
-        {
-          id: 9,
-          name: "结婚",
-          term: "95",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 1,
-        },
-        {
-          id: 10,
-          name: "妈妈",
-          term: "51",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 11,
-          name: "爸爸",
-          term: "151",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 12,
-          name: "妻子",
-          term: "252",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 13,
-          name: "来京",
-          term: "353",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 1,
-        },
-        {
-          id: 14,
-          name: "结婚",
-          term: "47",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 1,
-        },
-        {
-          id: 15,
-          name: "妈妈",
-          term: "58",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 16,
-          name: "爸爸",
-          term: "69",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 17,
-          name: "妻子",
-          term: "70",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 0,
-        },
-        {
-          id: 18,
-          name: "来京",
-          term: "81",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 1,
-        },
-        {
-          id: 19,
-          name: "结婚",
-          term: "90",
-          cycle: "",
-          avatar: "",
-          solarCalendar: "",
-          lunarCalendar: "",
-          type: 1,
-        },
-      ],
+      // listData: [
+      //   {
+      //     id: 0,
+      //     name: "妈妈", //名称
+      //     sex: 0, //0女 1男 2默认不填
+      //     term: "5", //还有几天
+      //     cycle: "40", //多少周年
+      //     avatar:
+      //       "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+      //     solarCalendar: "1971-3-28", //阳历
+      //     lunarCalendar: "", //阴历
+      //     type: 0, //0是生日 1是纪念日
+      //   },
+      //   {
+      //     id: 1,
+      //     name: "爸爸",
+      //     sex: 1,
+      //     term: "15",
+      //     cycle: "20",
+      //     avatar: "",
+      //     solarCalendar: "",
+      //     lunarCalendar: "",
+      //     type: 0,
+      //   },
+      //   {
+      //     id: 2,
+      //     name: "妻子",
+      //     sex: 0,
+      //     term: "25",
+      //     cycle: "30",
+      //     avatar: "",
+      //     solarCalendar: "",
+      //     lunarCalendar: "",
+      //     type: 0,
+      //   },
+      // ],
     };
   }
 
@@ -241,26 +87,11 @@ export default class Index extends Component {
         }
       },
     });
-    this.getList();
+    this.props.asyncGetList()
   }
 
   onGetUserInfo = (e) => {
     console.log(e);
-  };
-
-  getList = () => {
-    wx.cloud
-      .callFunction({
-        name: "getList",
-        data: { database: "dataList", condition: {} },
-      })
-      .then((res) => {
-        const newData = TimeLine(res.result.data);
-        console.log(newData);
-        this.setState({
-          listData: [...newData],
-        });
-      });
   };
 
   componentWillUnmount() {}
@@ -288,7 +119,8 @@ export default class Index extends Component {
   };
 
   render() {
-    const { listData, canIUse } = this.state;
+    const { canIUse } = this.state;
+    const {list}=this.props
     return (
       <Fragment>
         <ScrollView
@@ -299,7 +131,7 @@ export default class Index extends Component {
         >
           <Search />
           <View className="index-list">
-            {listData.map((item, index) => {
+            {list&&list.map((item, index) => {
               return (
                 <View
                   className="list-item"
