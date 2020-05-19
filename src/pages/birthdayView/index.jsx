@@ -66,7 +66,7 @@ export default class Index extends Component {
         <Image className="index-avatar" src={avatar} mode="aspectFit" />
         <View className="index-info">
           <View className="info-item">{name}</View>
-          <View className="">
+          <View className="info-sex">
             <Picker
               mode="selector"
               range={this.state.selector}

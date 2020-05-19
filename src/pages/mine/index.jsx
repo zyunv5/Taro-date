@@ -2,7 +2,7 @@ import Taro, { Component, Fragment } from "@tarojs/taro";
 import { View, Text, Image,ScrollView } from "@tarojs/components";
 import { AtAccordion, AtList, AtListItem } from "taro-ui";
 import "./index.less";
-import Tabbar from "../../components/tabbar/index";
+import customTabBar from "../../custom-tab-bar/index";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
@@ -21,6 +21,7 @@ function mapDispatchToProps(dispatch) {
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "我的",
+    usingComponents:{}
   };
   constructor() {
     super(...arguments);
@@ -56,7 +57,8 @@ export default class Index extends Component {
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
 
   componentWillUnmount() {}
 
@@ -117,7 +119,7 @@ export default class Index extends Component {
             </AtAccordion>
           </ScrollView>
         </View>
-        <Tabbar />
+        {/* <Tabbar /> */}
       </Fragment>
     );
   }

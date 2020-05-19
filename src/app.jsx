@@ -28,6 +28,7 @@ class App extends Component {
       backgroundColor: "#5698c3",
     },
     tabBar: {
+      custom:true,
       list: [
         {
           iconPath: "assets/images/list.png",
@@ -45,6 +46,14 @@ class App extends Component {
     },
     sitemapLocation: "sitemap.json",
   };
+
+  // ts 30
+  // hooks 30
+  // node 20
+  // 前端算法 30
+  // js设计模式核心 20
+  // 性能 20
+
 
   componentWillMount() {
     wx.cloud.init({

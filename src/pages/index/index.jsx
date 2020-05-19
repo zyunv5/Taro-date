@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import * as Actions from '../../store/actions'
 import "./index.less";
 import Search from "./Search";
-import Tabbar from "../../components/tabbar/index";
+import customTabBar from "../../custom-tab-bar/index";
 import Login from "../../components/login/index";
 import { TimeLine } from "../../utils/timeLine";
 
@@ -25,6 +25,7 @@ function mapDispatchToProps(dispatch) {
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "首页",
+    usingComponents:{}
   };
 
   constructor(props) {
@@ -144,7 +145,7 @@ export default class Index extends Component {
             })}
           </View>
         </ScrollView>
-        <Tabbar />
+        {/* <Tabbar /> */}
         <Login />
       </Fragment>
     );

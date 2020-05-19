@@ -1,14 +1,14 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Text } from "@tarojs/components";
 import "./index.css";
-import Add from "../../assets/images/add.png";
-import List from "../../assets/images/list.png";
-import Mine from "../../assets/images/mine.png";
-import ListSelected from "../../assets/images/list-selected.png";
-import MineSelected from "../../assets/images/mine-selected.png";
+import Add from "../assets/images/add.png";
+import List from "../assets/images/list.png";
+import Mine from "../assets/images/mine.png";
+import ListSelected from "../assets/images/list-selected.png";
+import MineSelected from "../assets/images/mine-selected.png";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
-import * as Actions from "../../store/actions";
+import * as Actions from "../store/actions";
 
 function mapStateToProps(state) {
   return {
@@ -21,7 +21,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Index extends Component {
+export default class customTabBar extends Component {
   constructor(props) {
     super(props);
   }
