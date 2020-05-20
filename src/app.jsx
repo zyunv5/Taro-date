@@ -31,14 +31,14 @@ class App extends Component {
       custom:true,
       list: [
         {
-          iconPath: "assets/images/list.png",
-          selectedIconPath: "assets/images/list-selected.png",
+          // iconPath: "assets/images/list.png",
+          // selectedIconPath: "assets/images/list-selected.png",
           pagePath: "pages/index/index",
           text: "首页",
         },
         {
-          iconPath: "assets/images/mine.png",
-          selectedIconPath: "assets/images/mine-selected.png",
+          // iconPath: "assets/images/mine.png",
+          // selectedIconPath: "assets/images/mine-selected.png",
           pagePath: "pages/mine/index",
           text: "我的",
         },

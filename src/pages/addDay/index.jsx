@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, RadioGroup, Radio, Input, Label } from "@tarojs/components";
 import { AtImagePicker } from "taro-ui";
-import BottomDialog from "./bottomDialog/index";
+import BottomDialog from "../../components/bottomDialog";
 import "./index.less";
 
 export default class Index extends Component {

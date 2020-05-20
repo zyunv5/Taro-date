@@ -4,11 +4,10 @@ import { connect } from "@tarojs/redux";
 import { bindActionCreators } from 'redux'
 import * as Actions from '../../store/actions'
 import "./index.less";
-import Search from "./Search";
+import Search from "../../components/Search";
 import customTabBar from "../../custom-tab-bar/index";
 import Login from "../../components/login/index";
 import { TimeLine } from "../../utils/timeLine";
-
 
 function mapStateToProps(state) {
   return {
@@ -25,7 +24,7 @@ function mapDispatchToProps(dispatch) {
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "首页",
-    usingComponents:{}
+    // usingComponents:{}
   };
 
   constructor(props) {

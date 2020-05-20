@@ -1,10 +1,10 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text, Input, Image } from "@tarojs/components";
-import searchIcon from "../../../assets/images/search.png";
+import searchIcon from "../../assets/images/search.png";
 import "./index.css";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from 'redux'
-import * as Actions from '../../../store/actions'
+import * as Actions from '../../store/actions'
 
 function mapStateToProps(state) {
   return {};

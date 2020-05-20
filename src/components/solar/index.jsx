@@ -1,13 +1,10 @@
-//农历
+//阳历
 import Taro, { Component } from "@tarojs/taro";
 import { View, PickerView, PickerViewColumn } from "@tarojs/components";
-import { calendarFunc, oldDays } from "../../../utils/calendar";
+import { calendarFunc, oldDays } from "../../utils/calendar";
 import "./index.css";
 
 export default class Index extends Component {
-  config = {
-    navigationBarTitleText: "新增",
-  };
   constructor() {
     super(...arguments);
     const date = new Date();
@@ -25,11 +22,10 @@ export default class Index extends Component {
       day: date.getDate(),
       years: years,
       months: months,
-      oldMonths: [],
       days: [],
-      oldDays: oldDays,
       value: [],
-      isLeapMonth: null,
+      dateValue: [date.getFullYear(), date.getMonth() + 1, date.getDate()],
+      isLeap: false,
     };
   }
   componentWillMount() {
@@ -40,14 +36,8 @@ export default class Index extends Component {
       date.getDate()
     );
     this.setState({
-      oldMonths: currentDay.toMonthArray,
-      value: [
-        this.state.years.length - 1,
-        currentDay.toMonthArray.indexOf(currentDay.IMonthCn),
-        oldDays.indexOf(currentDay.IDayCn),
-      ],
       days: currentDay.solarDaysArray,
-      isLeapMonth: currentDay.leapMonth,
+      value: [this.state.years.length - 1, date.getMonth(), date.getDate() - 1],
     });
   }
   componentDidMount() {}
@@ -57,17 +47,21 @@ export default class Index extends Component {
   //日期改变触发
   onChangeDate = (e) => {
     const val = e.detail.value;
-    const [year, month, day] = val;
-    const currentMonths=calendarFunc.lunar2solar(this.state.years[year],1,1);
+    const [year, month] = val;
+    const currentDay = calendarFunc.solar2lunar(
+      this.state.years[year],
+      this.state.months[month],
+      1
+    );
     this.setState({
-      oldMonths:currentMonths.toMonthArray,
-      isLeapMonth: currentMonths.leapMonth,
-      value: [year, month, day],
-    })
-  };
-  lunarDate = () => {
-    const [year, month, day] = this.state.value;
-    return [this.state.years[year],this.state.oldMonths[month],oldDays[day]]
+      days: [...currentDay.solarDaysArray],
+      value: [val[0], val[1], val[2]],
+      dateValue: [
+        this.state.years[val[0]],
+        this.state.months[val[1]],
+        this.state.days[val[2]],
+      ],
+    });
   };
 
   render() {
@@ -84,12 +78,12 @@ export default class Index extends Component {
           })}
         </PickerViewColumn>
         <PickerViewColumn className="date-item">
-          {this.state.oldMonths.map((item) => {
+          {this.state.months.map((item) => {
             return <View key={item}>{item}月</View>;
           })}
         </PickerViewColumn>
         <PickerViewColumn className="date-item">
-          {this.state.oldDays.map((item) => {
+          {this.state.days.map((item) => {
             return <View key={item}>{item}日</View>;
           })}
         </PickerViewColumn>
