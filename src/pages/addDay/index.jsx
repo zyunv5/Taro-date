@@ -162,17 +162,6 @@ export default class Index extends Component {
     const { type, solarDate, lunarDate, files, dataSelect } = this.state;
     return (
       <View className="index">
-        <RadioGroup
-          class="index-radio-group"
-          onChange={(event) => this.radioChange(event)}
-        >
-          <Radio value="0" checked>
-            生日
-          </Radio>
-          <Radio value="1" className="radio-commemorate">
-            纪念日
-          </Radio>
-        </RadioGroup>
         <View className="index-avatar">
           <AtImagePicker
             multiple={false}
@@ -184,6 +173,28 @@ export default class Index extends Component {
             onImageClick={this.onImageClick.bind(this)}
           />
         </View>
+        <RadioGroup
+          class="index-radio-group"
+          onChange={(event) => this.radioChange(event)}
+        >
+          <Radio value="0" checked>
+            生日
+          </Radio>
+          <Radio value="1" className="radio-commemorate">
+            纪念日
+          </Radio>
+        </RadioGroup>
+        <RadioGroup
+          class="index-radio-group"
+          onChange={(event) => this.sexChange(event)}
+        >
+          <Radio value="0" checked>
+            女
+          </Radio>
+          <Radio value="1" className="radio-commemorate">
+            男
+          </Radio>
+        </RadioGroup>
         <View className="index-name">
           {parseInt(type) === 0 ? (
             <View className="name-label">称呼：</View>
@@ -197,17 +208,6 @@ export default class Index extends Component {
             onInput={(e) => this.nameInput(e)}
           />
         </View>
-        <RadioGroup
-          class="index-radio-group"
-          onChange={(event) => this.sexChange(event)}
-        >
-          <Radio value="0" checked>
-            女
-          </Radio>
-          <Radio value="1" className="radio-commemorate">
-            男
-          </Radio>
-        </RadioGroup>
         <View className="index-date">
           <View className="date-label">日期：</View>
           <View className="date-select" onClick={() => this.showDialog()}>

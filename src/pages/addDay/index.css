@@ -7,13 +7,13 @@
 }
 .index .index-radio-group {
   width: 50vw;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 .index .index-radio-group .radio-commemorate {
   margin-left: 30px;
 }
 .index .index-avatar {
-  margin: 5vh auto;
+  margin: 15px auto;
   width: 25vw;
   height: 25vw;
 }
@@ -24,16 +24,16 @@
 .index .index-name {
   width: 60vw;
   height: 5vh;
-  margin: 0vh auto 5vh;
+  margin: 50px auto;
 }
 .index .index-name .name-label {
-  width: 30%;
+  width: 130px;
   height: 100%;
   line-height: 5vh;
   float: left;
 }
 .index .index-name .name-input {
-  width: 70%;
+  width: calc(100% - 130px);
   height: 100%;
   line-height: 5vh;
   float: left;
@@ -44,18 +44,18 @@
   margin: 0vh auto 5vh;
 }
 .index .index-date .date-label {
-  width: 30%;
+  width: 100px;
   height: 100%;
   float: left;
 }
 .index .index-date .date-select {
-  width: 70%;
+  width: calc(100% - 100px);
   height: 100%;
   float: left;
 }
 .index .index-submit {
   width: 60vw;
-  margin: 5vh auto;
+  margin: 50px auto;
 }
 .index .index-submit .submit-confirm,
 .index .index-submit .submit-cancel {

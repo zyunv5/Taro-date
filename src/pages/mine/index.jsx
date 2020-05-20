@@ -73,9 +73,8 @@ export default class Index extends Component {
       <Fragment>
         <View className="mine">
           <View className="mine-info">
-            {/* <Image className="info-portrait" /> */}
-            <Avatar className="info-portrait" />
-            <View className="info-name">BurNIng</View>
+            <Avatar className="info-portrait"/>
+            <View className="info-name">Hello User</View>
           </View>
           <ScrollView scrollY className="mine-list">
             <AtAccordion

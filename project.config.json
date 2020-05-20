@@ -70,6 +70,13 @@
 					"id": -1,
 					"name": "pages/index/index",
 					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/birthdayView/index",
+					"pathName": "pages/birthdayView/index",
 					"scene": null
 				}
 			]

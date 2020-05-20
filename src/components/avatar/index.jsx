@@ -1,19 +1,16 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View,Image } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
 import "./index.css";
-import avatar from "../../assets/images/normal-avatar.png"
+import avatar from "../../assets/images/normal-avatar.png";
 
 export default class Index extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
   }
   static defaultProps = {
-    size: 'small',
-    src:avatar
-  }
+    size: "normal",
+    avatar: avatar,
+  };
 
   componentWillMount() {}
 
@@ -26,9 +23,9 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
-    const {size,avatar}=this.props;
+    const { size, avatar } = this.props;
     return (
-      <View className="avatar">
+      <View className={`avatar ${size}`}>
         <Image mode="aspectFit" src={avatar} />
       </View>
     );

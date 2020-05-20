@@ -6,7 +6,6 @@
   left: 0;
   display: flex;
   align-items: center;
-  border-top: 5px solid #ccc;
   background-color: #fff;
   .footer-list {
     width: 30vw;
@@ -28,18 +27,32 @@
     height: 120px;
     text-align: center;
     position: relative;
-    .add-button {
-      display: block;
+    .footer-add-bg{
+      width: 105px;
+      height: 95px;
+      border-radius: 50%;
       position: absolute;
-      top: -35%;
+      top: -22%;
       left: 0;
       right: 0;
       margin: 0 auto;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background-color: #fff;
-      border: 10px solid #ccc;
+      background-color: #eee;
+      .add-button {
+        display: block;
+        position: absolute;
+        top: -5%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 6px solid #ccc;
+        &:active{
+          border: 6px solid #18ba4dff;
+        }
+      }
     }
   }
   .footer-mine {

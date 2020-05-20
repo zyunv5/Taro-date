@@ -8,6 +8,19 @@
   box-sizing: border-box;
   background-color: #eee;
 }
+.index .index-top {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.index .index-top .top-avatar {
+  width: 60px;
+  margin-right: 20px;
+}
+.index .index-top .top-search {
+  flex-grow: 1;
+}
 .index .index-add {
   width: 100%;
   margin: 55px auto 0;
@@ -20,11 +33,17 @@
 }
 .index .index-list .list-item {
   width: 100%;
-  height: 80px;
-  line-height: 80px;
+  height: 75px;
+  line-height: 75px;
   display: flex;
   justify-content: space-around;
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid #18ba4dff;
+}
+.index .index-list .list-item:nth-child(even) {
+  background-color: #e0e0e0;
+}
+.index .index-list .list-item:active {
+  background-color: #43ad7f7f;
 }
 .index .index-list .list-item .item-name {
   width: 80px;

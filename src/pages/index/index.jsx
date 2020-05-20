@@ -1,17 +1,18 @@
 import Taro, { Component, Fragment } from "@tarojs/taro";
 import { ScrollView, View, Text, Button } from "@tarojs/components";
 import { connect } from "@tarojs/redux";
-import { bindActionCreators } from 'redux'
-import * as Actions from '../../store/actions'
+import { bindActionCreators } from "redux";
+import * as Actions from "../../store/actions";
 import "./index.less";
 import Search from "../../components/Search";
+import Avatar from "../../components/avatar";
 import customTabBar from "../../custom-tab-bar/index";
 import Login from "../../components/login/index";
 import { TimeLine } from "../../utils/timeLine";
 
 function mapStateToProps(state) {
   return {
-    list:state.list
+    list: state.list,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -20,7 +21,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 @connect(mapStateToProps, mapDispatchToProps)
-
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "首页",
@@ -86,7 +86,7 @@ export default class Index extends Component {
         }
       },
     });
-    this.props.asyncGetList()
+    this.props.asyncGetList();
   }
 
   onGetUserInfo = (e) => {
@@ -118,7 +118,7 @@ export default class Index extends Component {
   };
 
   render() {
-    const {list}=this.props
+    const { list } = this.props;
     return (
       <Fragment>
         <ScrollView
@@ -127,21 +127,29 @@ export default class Index extends Component {
           enableBackToTop={true}
           enableFlex={true}
         >
-          <Search />
+          <View className="index-top">
+            <View className="top-avatar">
+              <Avatar size={"small"} />
+            </View>
+            <View className="top-search">
+              <Search className="top-search" />
+            </View>
+          </View>
           <View className="index-list">
-            {list&&list.map((item, index) => {
-              return (
-                <View
-                  className="list-item"
-                  key={item.id}
-                  onClick={() => this.seeDetail(item)}
-                >
-                  <View className="item-name">{item.name}</View>
-                  <View className="item-cycle">距离{item.cycle}岁</View>
-                  <View className="item-term">还有{item.term}天</View>
-                </View>
-              );
-            })}
+            {list &&
+              list.map((item, index) => {
+                return (
+                  <View
+                    className="list-item"
+                    key={item.id}
+                    onClick={() => this.seeDetail(item)}
+                  >
+                    <View className="item-name">{item.name}</View>
+                    <View className="item-cycle">距离{item.cycle}岁</View>
+                    <View className="item-term">还有{item.term}天</View>
+                  </View>
+                );
+              })}
           </View>
         </ScrollView>
         {/* <Tabbar /> */}

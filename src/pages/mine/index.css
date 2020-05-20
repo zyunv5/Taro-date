@@ -3,6 +3,7 @@
   height: 100vh;
   padding: 20px 30px 135px 30px;
   box-sizing: border-box;
+  background-color: #eee;
 }
 .mine .mine-info {
   width: 100%;
@@ -17,7 +18,7 @@
   border-radius: 50%;
 }
 .mine .mine-info .info-name {
-  width: 100rpx;
+  width: 200rpx;
   margin-left: 30rpx;
   font-size: 40rpx;
 }
@@ -29,4 +30,10 @@
 .mine .mine-list .list-item {
   width: 100%;
   margin-bottom: 10px;
+  background-color: #e0e0e0;
+}
+.mine .mine-list .list-item .at-list__item {
+  background: #e5e5e5;
+  border-bottom: 1px solid #18ba4dff;
+  margin-bottom: 2px;
 }

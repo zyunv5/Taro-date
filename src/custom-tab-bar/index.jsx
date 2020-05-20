@@ -116,7 +116,9 @@ export default class customTabBar extends Component {
           </Text>
         </View>
         <View className="footer-add" onClick={() => this.goRouteBirthday()}>
-          <Image className="add-button" src={Add} alt="" mode="aspectFit" />
+          <View className="footer-add-bg">
+            <Image className="add-button" src={Add} alt="" mode="aspectFit" />
+          </View>
         </View>
         <View className="footer-mine" onClick={() => this.goRouteMine()}>
           <Image
