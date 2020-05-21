@@ -36,6 +36,7 @@ export default class Index extends Component {
   componentWillMount() {
     // 获取路由携带过来的参数
     const params = JSON.parse(this.$router.params.data);
+    console.log(params)
     if (params.type === 0) {
       Taro.setNavigationBarTitle({
         title: params.name + "的生日",

@@ -58,7 +58,7 @@ export default class Index extends Component {
     const { size, avatar } = this.props;
     return (
       <View className={`avatar ${size}`} onClick={()=>this.getSetting()}>
-        <Image mode="aspectFit" src={avatar} />
+        <Image className="avatar-image" mode="aspectFit" src={avatar} />
       </View>
     );
   }

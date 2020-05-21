@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { TimeLine } from "../utils/timeLine";
-import { GET_LIST, CHANGE_TABBAR, SHOW_DIALOG,HIDE_DIALOG } from "./constants";
+import { GET_LIST, CHANGE_TABBAR, SHOW_DIALOG,HIDE_DIALOG,CHANGE_USER } from "./constants";
 
 //tabar更改路由
 export const changeRouter = (bool) => ({ type: CHANGE_TABBAR, bool });
@@ -79,6 +79,9 @@ export const getList = (data) => ({ type: GET_LIST, data });
 export const changeDialogShow = () => ({ type: SHOW_DIALOG, data:true });
 
 export const changeDialogHide = () => ({ type: HIDE_DIALOG, data:false });
+
+//更新用户信息
+export const changeUserInfo=()=>({ type: CHANGE_USER, data })
 
 //index页面的模糊搜索
 export function asyncSearchKeyWords(keyWords) {

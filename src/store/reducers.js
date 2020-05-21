@@ -5,7 +5,9 @@ import {
   SEARCH_KEY_WORDS,
   SHOW_DIALOG,
   HIDE_DIALOG,
+  CHANGE_USER
 } from "./constants";
+import avatar from "../assets/images/normal-avatar.png";
 
 //tabar更改路由
 const initRouter = 0;
@@ -25,6 +27,19 @@ function changeDialog(state = defaultDialog, action) {
     case SHOW_DIALOG:
       return action.data;
     case HIDE_DIALOG:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+const defaultUser = {
+  nickName:"",
+  avatar:avatar
+};
+function changeUser(state = defaultUser, action) {
+  switch (action.type) {
+    case CHANGE_USER:
       return action.data;
     default:
       return state;
@@ -58,4 +73,5 @@ export default combineReducers({
   routerSelect,
   searchKeyWords,
   changeDialog,
+  changeUser
 });

@@ -141,7 +141,7 @@ export default class Index extends Component {
   };
   //取消保存
   cancel = () => {
-    Taro.switchTab({ url: "pages/index/index" })
+    wx.switchTab({ url: "/pages/index/index" })
   };
   render() {
     const { type, solarDate, lunarDate, files, dataSelect } = this.state;

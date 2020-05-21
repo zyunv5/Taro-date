@@ -46,41 +46,22 @@ class App extends Component {
     sitemapLocation: "sitemap.json",
   };
 
-  // ts 30
-  // hooks 30
-  // node 20
-  // 前端算法 30
-  // js设计模式核心 20
-  // 性能 20
-
   componentWillMount() {
     wx.cloud.init({
       traceUser: true,
       env: "test-50v2n",
     });
-    //隐藏自定义的tabbar
     wx.hideTabBar();
   }
   componentDidMount() {
-    // this.getOpenid();
-    //隐藏自定义的tabbar
     wx.hideTabBar();
   }
 
-  componentDidShow() {
-    //隐藏自定义的tabbar
-    wx.hideTabBar();
-  }
+  componentDidShow() {}
 
-  componentWillUnmount() {
-    //隐藏自定义的tabbar
-    wx.hideTabBar();
-  }
+  componentWillUnmount() {}
 
-  componentDidHide() {
-    //隐藏自定义的tabbar
-    wx.hideTabBar();
-  }
+  componentDidHide() {}
 
   componentDidCatchError() {}
 

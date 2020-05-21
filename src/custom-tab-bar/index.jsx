@@ -13,6 +13,7 @@ import * as Actions from "../store/actions";
 function mapStateToProps(state) {
   return {
     routerSelect: state.routerSelect,
+    isHide: state.changeDialog,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -25,7 +26,9 @@ export default class customTabBar extends Component {
   constructor(props) {
     super(props);
   }
-  componentWillMount() {}
+  componentWillMount() {
+    Taro.hideTabBar();
+  }
 
   componentDidMount() {}
 
@@ -70,14 +73,7 @@ export default class customTabBar extends Component {
     const params = this.getCurrentRoutePage();
     if (params !== "pages/index/index") {
       this.props.changeRouter(0);
-      Taro.navigateTo({ url: "/pages/index/index" })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-          wx.switchTab({ url: "/pages/index/index" });
-        });
+      Taro.switchTab({ url: "/pages/index/index" })
     }
   };
 
@@ -89,14 +85,7 @@ export default class customTabBar extends Component {
     const params = this.getCurrentRoutePage();
     if (params !== "pages/mine/index") {
       this.props.changeRouter(1);
-      Taro.navigateTo({ url: "/pages/mine/index" })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-          wx.switchTab({ url: "/pages/mine/index" });
-        });
+      Taro.switchTab({ url: "/pages/mine/index" })
     }
   };
 
@@ -111,7 +100,10 @@ export default class customTabBar extends Component {
             mode="aspectFit"
             alt=""
           />
-          <Text style={routerSelect === 0 ? { color: "#18ba4dff" } : null}>
+          <Text
+            className="list-text"
+            style={routerSelect === 0 ? { color: "#18ba4dff" } : null}
+          >
             列表
           </Text>
         </View>
@@ -127,7 +119,10 @@ export default class customTabBar extends Component {
             mode="aspectFit"
             alt=""
           />
-          <Text style={routerSelect === 1 ? { color: "#18ba4dff" } : null}>
+          <Text
+            className="mine-text"
+            style={routerSelect === 1 ? { color: "#18ba4dff" } : null}
+          >
             我的
           </Text>
         </View>
