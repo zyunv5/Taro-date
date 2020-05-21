@@ -14,18 +14,22 @@ export default class Index extends Component {
       date: null,
     };
   }
+  static defaultProps = {
+    solar: [],
+    lunar: [],
+  };
   componentWillMount() {}
-
   componentDidMount() {
-
+    const { solar, lunar } = this.props;
+    if (solar.length > 0) {
+      this.setState({ calendar: 0 });
+    } else if (lunar.length > 0) {
+      this.setState({ calendar: 1 });
+    }
   }
-
   componentWillUnmount() {}
-
   componentDidShow() {}
-
   componentDidHide() {}
-
   //切换到阳历日历
   changeSolar = () => {
     this.setState({ calendar: 0 });
@@ -42,14 +46,14 @@ export default class Index extends Component {
       this.setState({
         date: `${year}-${month}-${day}`,
       });
-      this.props.changeSolarDate([year,month,day]);
+      this.props.changeSolarDate([year, month, day]);
     } else {
       const [year, month, day] = this.refs.lunar.lunarDate();
       console.log(this.refs.lunar.lunarDate());
       this.setState({
         date: `${year}-${month}-${day}`,
       });
-      this.props.changeLunarDate([year,month,day]);
+      this.props.changeLunarDate([year, month, day]);
     }
     this.hideDialog();
   };
@@ -90,6 +94,7 @@ export default class Index extends Component {
 
   render() {
     const { show, calendar, animationData } = this.state;
+    const { solar, lunar } = this.props;
     return (
       <View className={`bottom-dialog ${show ? "" : "display-none"}`}>
         <View className="dialog-pick" animation={animationData}>
@@ -133,7 +138,11 @@ export default class Index extends Component {
               确认
             </View>
           </View>
-          {calendar === 0 ? <Solar ref="solar" /> : <Lunar ref="lunar" />}
+          {calendar === 0 ? (
+            <Solar ref="solar" solar={solar} />
+          ) : (
+            <Lunar ref="lunar" lunar={lunar} />
+          )}
         </View>
       </View>
     );

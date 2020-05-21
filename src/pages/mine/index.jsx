@@ -59,6 +59,19 @@ export default class Index extends Component {
   componentWillMount() {}
 
   componentDidMount() {
+    // const { list } = this.props;
+    // const birthdayList=[],commemorateList=[]
+    // list.map(item=>{
+    //   if(item.type===0){
+    //     birthdayList.push(item)
+    //   }else{
+    //     commemorateList.push(item)
+    //   }
+    // })
+    // this.setState({
+    //   birthdayList:[...birthdayList],
+    //   commemorateList:[...commemorateList]
+    // })
   }
 
   componentWillUnmount() {}
@@ -107,15 +120,18 @@ export default class Index extends Component {
               title="纪念日列表"
             >
               <AtList hasBorder={false}>
-                {this.state.commemorateList.map((item) => {
-                  return (
-                    <AtListItem
-                      key={item}
-                      title={item.title}
-                      thumb={item.thumb}
-                    />
-                  );
-                })}
+              {list &&
+                  list.map((item) => {
+                    if (item.type === 1) {
+                      return (
+                        <AtListItem
+                          key={item}
+                          title={item.name}
+                          thumb={item.avatar}
+                        />
+                      );
+                    }
+                  })}
               </AtList>
             </AtAccordion>
           </ScrollView>

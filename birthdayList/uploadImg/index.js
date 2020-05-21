@@ -8,10 +8,8 @@ const db=cloud.database()
 
 exports.main = async (event, context) => {
   const {database,condition}=event;
-  console.log(database,condition)
   try {
     let isUser=await db.collection(database).where({userId:condition.userId}).get()
-    console.log(isUser)
     if(isUser.data.length>0){
       return await db.collection(database).where({userId:condition.userId}).update({
         data:{

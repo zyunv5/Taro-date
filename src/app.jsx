@@ -2,23 +2,22 @@ import Taro, { Component } from "@tarojs/taro";
 import Index from "./pages/index";
 import "taro-ui/dist/style/index.scss"; // 全局引入一次即可
 import "./app.less";
-import { Provider } from '@tarojs/redux'
-import configStore from './store'
+import { Provider } from "@tarojs/redux";
+import configStore from "./store";
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
-const store = configStore()
+const store = configStore();
 class App extends Component {
   config = {
     pages: [
       "pages/index/index",
       "pages/mine/index",
       "pages/addDay/index",
-      "pages/birthdayView/index",
-      "pages/commemorateView/index",
+      "pages/detailView/index",
     ],
     window: {
       backgroundTextStyle: "light",
@@ -28,7 +27,7 @@ class App extends Component {
       backgroundColor: "#5698c3",
     },
     tabBar: {
-      custom:true,
+      custom: true,
       list: [
         {
           // iconPath: "assets/images/list.png",
@@ -54,11 +53,10 @@ class App extends Component {
   // js设计模式核心 20
   // 性能 20
 
-
   componentWillMount() {
     wx.cloud.init({
       traceUser: true,
-      env:"test-50v2n"
+      env: "test-50v2n",
     });
     //隐藏自定义的tabbar
     wx.hideTabBar();
@@ -89,11 +87,11 @@ class App extends Component {
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {
-    return  (
+    return (
       <Provider store={store}>
         <Index />
       </Provider>
-    )
+    );
   }
 }
 

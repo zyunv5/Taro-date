@@ -3,7 +3,19 @@ import { View, RadioGroup, Radio, Input, Label } from "@tarojs/components";
 import { AtImagePicker } from "taro-ui";
 import BottomDialog from "../../components/bottomDialog";
 import "./index.less";
+import { connect } from "@tarojs/redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../../store/actions";
 
+function mapStateToProps(state) {
+  return {};
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(Actions, dispatch),
+  };
+}
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "新增",
@@ -116,47 +128,20 @@ export default class Index extends Component {
     this.state.files.length > 0
       ? (avatar = this.state.files[0].url)
       : (avatar = "");
-    wx.cloud
-      .callFunction({
-        name: "addFestival",
-        data: {
-          database: "dataList",
-          condition: {
-            userId: wx.getStorageSync("openid"),
-            avatar: avatar,
-            name: this.state.name,
-            sex: this.state.sex,
-            solarCalendar: this.state.solarDate, //阳历生日
-            lunarCalendar: this.state.lunarDate, //阴历生日
-            type: this.state.type, //0是生日 1是纪念日
-          },
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.errMsg === "fail") {
-        } else {
-          Taro.switchTab({ url: "/pages/index/index" })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        }
-      })
-      .catch((err) => console.log(err));
+    const params = {
+      userId: wx.getStorageSync("openid"),
+      avatar: avatar,
+      name: this.state.name,
+      sex: this.state.sex,
+      solarCalendar: this.state.solarDate, //阳历生日
+      lunarCalendar: this.state.lunarDate, //阴历生日
+      type: parseInt(this.state.type), //0是生日 1是纪念日
+    };
+    this.props.addItem(params);
   };
   //取消保存
   cancel = () => {
-    Taro.navigateTo({ url: "pages/index/index" })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-        wx.switchTab({ url: "/pages/index/index" });
-      });
+    Taro.switchTab({ url: "pages/index/index" })
   };
   render() {
     const { type, solarDate, lunarDate, files, dataSelect } = this.state;
@@ -184,17 +169,19 @@ export default class Index extends Component {
             纪念日
           </Radio>
         </RadioGroup>
-        <RadioGroup
-          class="index-radio-group"
-          onChange={(event) => this.sexChange(event)}
-        >
-          <Radio value="0" checked>
-            女
-          </Radio>
-          <Radio value="1" className="radio-commemorate">
-            男
-          </Radio>
-        </RadioGroup>
+        {parseInt(type) === 0 ? (
+            <RadioGroup
+            class="index-radio-group"
+            onChange={(event) => this.sexChange(event)}
+          >
+            <Radio value="0" checked>
+              女
+            </Radio>
+            <Radio value="1" className="radio-commemorate">
+              男
+            </Radio>
+          </RadioGroup>
+          ) : ""}
         <View className="index-name">
           {parseInt(type) === 0 ? (
             <View className="name-label">称呼：</View>

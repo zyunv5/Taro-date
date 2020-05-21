@@ -30,15 +30,26 @@ export default class Index extends Component {
   }
   componentWillMount() {
     const date = new Date();
-    const currentDay = calendarFunc.solar2lunar(
-      date.getFullYear(),
-      date.getMonth() + 1,
-      date.getDate()
-    );
-    this.setState({
-      days: currentDay.solarDaysArray,
-      value: [this.state.years.length - 1, date.getMonth(), date.getDate() - 1],
-    });
+    const {solar}=this.props;
+    if(solar.length>0){
+      const currentDay = calendarFunc.solar2lunar(
+        solar[0],solar[1],solar[2]
+      );
+      this.setState({
+        days: currentDay.solarDaysArray,
+        value: [solar[0]-1900, solar[1]-1, solar[2]-1],
+      });
+    }else{
+      const currentDay = calendarFunc.solar2lunar(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        date.getDate()
+      );
+      this.setState({
+        days: currentDay.solarDaysArray,
+        value: [this.state.years.length - 1, date.getMonth(), date.getDate() - 1],
+      });
+    }
   }
   componentDidMount() {}
   componentWillUnmount() {}

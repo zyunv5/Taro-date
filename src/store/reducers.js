@@ -1,5 +1,11 @@
 import { combineReducers } from "redux";
-import {GET_LIST,CHANGE_TABBAR,SEARCH_KEY_WORDS } from "./constants";
+import {
+  GET_LIST,
+  CHANGE_TABBAR,
+  SEARCH_KEY_WORDS,
+  SHOW_DIALOG,
+  HIDE_DIALOG,
+} from "./constants";
 
 //tabar更改路由
 const initRouter = 0;
@@ -7,6 +13,19 @@ function routerSelect(state = initRouter, action) {
   switch (action.type) {
     case CHANGE_TABBAR:
       return action.bool;
+    default:
+      return state;
+  }
+}
+
+//显示登录框
+const defaultDialog = false;
+function changeDialog(state = defaultDialog, action) {
+  switch (action.type) {
+    case SHOW_DIALOG:
+      return action.data;
+    case HIDE_DIALOG:
+      return action.data;
     default:
       return state;
   }
@@ -24,7 +43,7 @@ function list(state = initList, action) {
 }
 
 //index页面的模糊搜索
-const initSearch=""
+const initSearch = "";
 function searchKeyWords(state = initSearch, action) {
   switch (action.type) {
     case SEARCH_KEY_WORDS:
@@ -37,5 +56,6 @@ function searchKeyWords(state = initSearch, action) {
 export default combineReducers({
   list,
   routerSelect,
-  searchKeyWords
+  searchKeyWords,
+  changeDialog,
 });

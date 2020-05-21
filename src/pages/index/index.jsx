@@ -105,17 +105,14 @@ export default class Index extends Component {
    * @param 当前选中改行的数据
    */
   seeDetail = (item) => {
-    const { type } = item;
-    if (type === 0) {
-      Taro.navigateTo({
-        url: `../birthdayView/index?data=${JSON.stringify(item)}`,
-      });
-    } else {
-      Taro.navigateTo({
-        url: `../commemorateView/index?data=${JSON.stringify(item)}`,
-      });
-    }
+    Taro.navigateTo({
+      url: `../detailView/index?data=${JSON.stringify(item)}`,
+    });
   };
+
+  getSetting=()=>{
+    this.refs.avatar.getSetting();
+  }
 
   render() {
     const { list } = this.props;
@@ -129,7 +126,7 @@ export default class Index extends Component {
         >
           <View className="index-top">
             <View className="top-avatar">
-              <Avatar size={"small"} />
+              <Avatar size={"small"} ref="avatar" onClick={()=>this.getSetting()}/>
             </View>
             <View className="top-search">
               <Search className="top-search" />
@@ -145,7 +142,7 @@ export default class Index extends Component {
                     onClick={() => this.seeDetail(item)}
                   >
                     <View className="item-name">{item.name}</View>
-                    <View className="item-cycle">距离{item.cycle}岁</View>
+                <View className="item-cycle">距离{item.cycle}{item.type===0?"岁":"周年"}</View>
                     <View className="item-term">还有{item.term}天</View>
                   </View>
                 );

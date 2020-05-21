@@ -1,15 +1,33 @@
 import Taro, { Component, Fragment } from "@tarojs/taro";
 import { View, Image, Text } from "@tarojs/components";
 import "./index.css";
+import { connect } from "@tarojs/redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../../store/actions";
+
+function mapStateToProps(state) {
+  return {
+    isHide:state.changeDialog
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(Actions, dispatch),
+  };
+}
+@connect(mapStateToProps, mapDispatchToProps)
 
 export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       canIUse: wx.canIUse("button.open-type.getUserInfo"),
-      isHide: false,
       openid:null
     };
+  }
+
+  static defaultProps={
+    isHide: false,
   }
   componentWillMount() {}
 
@@ -28,14 +46,15 @@ export default class Index extends Component {
       //用户按了允许授权按钮
       console.log("用户的信息如下：");
       console.log(res.detail.userInfo); //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
-      this.setState({
-        isHide: true,
-      });
+      // this.setState({
+      //   isHide: true,
+      // });
+      that.props.changeDialogHide();
     } else {
       //用户按了拒绝按钮
       Taro.showModal({
         title: "温馨提醒",
-        content: "您点击了拒绝授权，将无法进入小程序，请授权之后再进入!",
+        content: "为了您更好的体验，请授权之后再进入!",
         showCancel: false,
         confirmText: "返回授权",
         success: function (res) {
@@ -62,11 +81,10 @@ export default class Index extends Component {
   };
 
   render() {
-    const { canIUse, isHide } = this.state;
+    const { isHide } = this.props;
     return (
       <Fragment>
-        {/* {canIUse ? (
-          <View className="login" style={isHide ? { display: "none" } : ""}>
+          <View className="login" style={isHide ? "" : { display: "none" }}>
             <View className="login-container">
               <View className="login-avatar">
                 <open-data type="userAvatarUrl"></open-data>
@@ -84,9 +102,6 @@ export default class Index extends Component {
               </Button>
             </View>
           </View>
-        ) : (
-          <View>请升级微信版本</View>
-        )} */}
       </Fragment>
     );
   }
