@@ -43,9 +43,10 @@ export default class Index extends Component {
   onGetUserInfo = (res) => {
     if (res.detail.userInfo) {
       //用户按了允许授权按钮
-      console.log(res.detail.userInfo); //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
-      wx.setStorageSync("nickName",res.detail.userInfo.nickName)
-      wx.setStorageSync("avatarUrl",res.detail.userInfo.avatarUrl)
+      this.props.changeUserInfo({
+        nickName: res.detail.userInfo.nickName,
+        avatar: res.detail.userInfo.avatarUrl,
+      });
       this.props.changeDialogHide();
     } else {
       //用户按了拒绝按钮
@@ -61,6 +62,10 @@ export default class Index extends Component {
         },
       });
     }
+  };
+
+  cancelLogin = () => {
+    this.props.changeDialogHide();
   };
 
   getOpenid = () => {
@@ -90,11 +95,20 @@ export default class Index extends Component {
             </View>
             <View className="login-tip">请您登录，感受美好~</View>
             <Button
+              className="login-button"
               type="primary"
               open-type="getUserInfo"
               onGetUserInfo={(userInfo) => this.onGetUserInfo(userInfo)}
             >
               请登录
+            </Button>
+            <Button
+              type="default"
+              onClick={() => {
+                this.cancelLogin();
+              }}
+            >
+              取消登录
             </Button>
           </View>
         </View>

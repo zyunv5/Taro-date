@@ -13,6 +13,7 @@ import { TimeLine } from "../../utils/timeLine";
 function mapStateToProps(state) {
   return {
     list: state.list,
+    userInfo: state.changeUser,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -30,7 +31,6 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInfo: {},
       hasUserInfo: false,
       canIUse: wx.canIUse("button.open-type.getUserInfo"),
       // listData: [
@@ -75,12 +75,16 @@ export default class Index extends Component {
   componentWillMount() {}
 
   componentDidMount() {
-    wx.getSetting({
+    let that=this;
+    Taro.getSetting({
       success: function (res) {
         if (res.authSetting["scope.userInfo"]) {
           Taro.getUserInfo({
             success: function (res) {
-              console.log(res.userInfo);
+              that.props.changeUserInfo({
+                nickName:res.userInfo.nickName,
+                avatar:res.userInfo.avatarUrl
+              })
             },
           });
         }
@@ -89,14 +93,8 @@ export default class Index extends Component {
     this.props.asyncGetList();
   }
 
-  onGetUserInfo = (e) => {
-    console.log(e);
-  };
-
   componentWillUnmount() {}
-
   componentDidShow() {}
-
   componentDidHide() {}
 
   /**
@@ -113,9 +111,8 @@ export default class Index extends Component {
   getSetting=()=>{
     this.refs.avatar.getSetting();
   }
-
   render() {
-    const { list } = this.props;
+    const { list,userInfo } = this.props;
     return (
       <Fragment>
         <ScrollView
@@ -126,7 +123,7 @@ export default class Index extends Component {
         >
           <View className="index-top">
             <View className="top-avatar">
-              <Avatar size={"small"} ref="avatar" onClick={()=>this.getSetting()}/>
+              <Avatar size={"small"} ref="avatar" avatar={userInfo.avatar} onClick={()=>this.getSetting()}/>
             </View>
             <View className="top-search">
               <Search className="top-search" />

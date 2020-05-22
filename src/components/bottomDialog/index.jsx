@@ -49,7 +49,6 @@ export default class Index extends Component {
       this.props.changeSolarDate([year, month, day]);
     } else {
       const [year, month, day] = this.refs.lunar.lunarDate();
-      console.log(this.refs.lunar.lunarDate());
       this.setState({
         date: `${year}-${month}-${day}`,
       });

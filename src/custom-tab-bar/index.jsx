@@ -57,12 +57,6 @@ export default class customTabBar extends Component {
    */
   goRouteBirthday = () => {
     Taro.navigateTo({ url: "/pages/addDay/index" })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   };
 
   /**

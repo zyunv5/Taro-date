@@ -1,9 +1,9 @@
 import Taro, { Component, Fragment } from "@tarojs/taro";
-import { View, Text, Image,ScrollView } from "@tarojs/components";
+import { View, Text, Image, ScrollView } from "@tarojs/components";
 import { AtAccordion, AtList, AtListItem } from "taro-ui";
 import "./index.less";
 import customTabBar from "../../custom-tab-bar/index";
-import Avatar from "../../components/avatar"
+import Avatar from "../../components/avatar";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
@@ -11,6 +11,7 @@ import * as Actions from "../../store/actions";
 function mapStateToProps(state) {
   return {
     list: state.list,
+    userInfo: state.changeUser,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -56,22 +57,10 @@ export default class Index extends Component {
     });
   };
 
-  componentWillMount() {}
+  componentWillMount() {
+  }
 
   componentDidMount() {
-    // const { list } = this.props;
-    // const birthdayList=[],commemorateList=[]
-    // list.map(item=>{
-    //   if(item.type===0){
-    //     birthdayList.push(item)
-    //   }else{
-    //     commemorateList.push(item)
-    //   }
-    // })
-    // this.setState({
-    //   birthdayList:[...birthdayList],
-    //   commemorateList:[...commemorateList]
-    // })
   }
 
   componentWillUnmount() {}
@@ -81,13 +70,13 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
-    const { list } = this.props;
+    const { list, userInfo } = this.props;
     return (
       <Fragment>
         <View className="mine">
           <View className="mine-info">
-            <Avatar className="info-portrait"/>
-            <View className="info-name">Hello User</View>
+            <Avatar className="info-portrait" avatar={userInfo.avatar} />
+            <View className="info-name">{userInfo.nickName}</View>
           </View>
           <ScrollView scrollY className="mine-list">
             <AtAccordion
@@ -120,7 +109,7 @@ export default class Index extends Component {
               title="纪念日列表"
             >
               <AtList hasBorder={false}>
-              {list &&
+                {list &&
                   list.map((item) => {
                     if (item.type === 1) {
                       return (

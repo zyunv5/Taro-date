@@ -81,7 +81,9 @@ const TimeLine = function (data) {
     data[i].cycle = value[1];
     newArray.push(data[i]);
   }
-  return newArray;
+  return newArray.sort((a, b) => {
+    return a.term - b.term;
+  });
 };
 
 module.exports = {

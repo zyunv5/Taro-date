@@ -76,15 +76,21 @@ export default class Index extends Component {
           this.setState({
             files: this.state.files.concat({ url: res.fileID }),
           });
-          // wx.cloud.callFunction({
-          //   name: "uploadImg",
-          //   data: { database: "imgData", condition: {
-          //     userId:wx.getStorageSync('openid'),
-          //     imgUrl:res.fileID
-          //   } },
-          // }).then(res=>{
-          //   console.log(res)
-          // }).catch(err=>console.log(err));
+          wx.cloud
+            .callFunction({
+              name: "uploadImg",
+              data: {
+                database: "imgData",
+                condition: {
+                  userId: wx.getStorageSync("openid"),
+                  imgUrl: res.fileID,
+                },
+              },
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => console.log(err));
         },
         fail: (err) => {
           console.log(err);
@@ -141,7 +147,7 @@ export default class Index extends Component {
   };
   //取消保存
   cancel = () => {
-    wx.switchTab({ url: "/pages/index/index" })
+    wx.switchTab({ url: "/pages/index/index" });
   };
   render() {
     const { type, solarDate, lunarDate, files, dataSelect } = this.state;
@@ -170,7 +176,7 @@ export default class Index extends Component {
           </Radio>
         </RadioGroup>
         {parseInt(type) === 0 ? (
-            <RadioGroup
+          <RadioGroup
             class="index-radio-group"
             onChange={(event) => this.sexChange(event)}
           >
@@ -181,7 +187,9 @@ export default class Index extends Component {
               男
             </Radio>
           </RadioGroup>
-          ) : ""}
+        ) : (
+          ""
+        )}
         <View className="index-name">
           {parseInt(type) === 0 ? (
             <View className="name-label">称呼：</View>

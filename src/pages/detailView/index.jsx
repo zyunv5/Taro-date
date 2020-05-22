@@ -1,5 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Picker, Input } from "@tarojs/components";
+import { AtImagePicker } from "taro-ui";
 import "./index.css";
 import avatar from "../../assets/images/normal-avatar.png";
 import BottomDialog from "../../components/bottomDialog/index";
@@ -30,13 +31,13 @@ export default class Index extends Component {
       selector: ["先生", "女士"],
       selectorChecked: "先生",
       params: {},
+      files: [],
     };
   }
 
   componentWillMount() {
     // 获取路由携带过来的参数
     const params = JSON.parse(this.$router.params.data);
-    console.log(params)
     if (params.type === 0) {
       Taro.setNavigationBarTitle({
         title: params.name + "的生日",
@@ -56,6 +57,7 @@ export default class Index extends Component {
       lunarCalendar: params.lunarCalendar,
       type: params.type,
       params: params,
+      files: [{ url: params.avatar }],
     });
   }
 
@@ -82,7 +84,6 @@ export default class Index extends Component {
       content: "确认要删除这条数据吗？",
       success(res) {
         if (res.confirm) {
-          console.log("用户点击确定");
           const params = that.state.params;
           params.userId = wx.getStorageSync("openid");
           that.props.removeItem(params);
@@ -98,7 +99,6 @@ export default class Index extends Component {
     });
   };
   nameInput = (e) => {
-    console.log(e.detail.value);
     this.setState({
       name: e.detail.value,
     });
@@ -119,6 +119,47 @@ export default class Index extends Component {
       lunarCalendar: date,
     });
   };
+  onChangeImg = (files) => {
+    console.log(files);
+    if (files.length === 0) {
+      this.setState({
+        files: [],
+      });
+    } else {
+      let extension = files[0].url.split(".").pop();
+      wx.cloud.uploadFile({
+        cloudPath: `file/${new Date().getTime()}.${extension}`,
+        filePath: files[0].url, //这个就是图片的存储路径
+        success: (res) => {
+          console.log("[上传图片]成功:", res.fileID);
+          this.setState({
+            files: this.state.files.concat({ url: res.fileID }),
+          });
+          wx.cloud
+            .callFunction({
+              name: "uploadImg",
+              data: {
+                database: "imgData",
+                condition: {
+                  userId: wx.getStorageSync("openid"),
+                  imgUrl: res.fileID,
+                },
+              },
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => console.log(err));
+        },
+        fail: (err) => {
+          console.log(err);
+        },
+      });
+    }
+  };
+  onImageClick(index, file) {
+    console.log(index, file);
+  }
 
   render() {
     const {
@@ -129,10 +170,19 @@ export default class Index extends Component {
       solarCalendar,
       lunarCalendar,
       type,
+      files,
     } = this.state;
     return (
       <View className={`index ${sex === 0 ? "bg-female" : "bg-male"}`}>
-        <Image className="index-avatar" src={avatar} mode="aspectFit" />
+        <AtImagePicker
+          multiple={false}
+          files={files}
+          onChange={(files) => this.onChangeImg(files)}
+          mode="aspectFit"
+          length={1}
+          className="index-avatar"
+          onImageClick={this.onImageClick.bind(this)}
+        />
         <View className="index-info">
           <View className="info-item">
             <Input

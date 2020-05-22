@@ -31,7 +31,6 @@ export function addItem(item) {
         },
       })
       .then((res) => {
-        console.log(res);
         if (res.result.errMsg === "collection.add:ok") {
           Taro.switchTab({ url: "/pages/index/index" });
           this.asyncGetList();
@@ -81,7 +80,7 @@ export const changeDialogShow = () => ({ type: SHOW_DIALOG, data:true });
 export const changeDialogHide = () => ({ type: HIDE_DIALOG, data:false });
 
 //更新用户信息
-export const changeUserInfo=()=>({ type: CHANGE_USER, data })
+export const changeUserInfo=(data)=>({ type: CHANGE_USER, data })
 
 //index页面的模糊搜索
 export function asyncSearchKeyWords(keyWords) {

@@ -5,7 +5,7 @@ import {
   SEARCH_KEY_WORDS,
   SHOW_DIALOG,
   HIDE_DIALOG,
-  CHANGE_USER
+  CHANGE_USER,
 } from "./constants";
 import avatar from "../assets/images/normal-avatar.png";
 
@@ -34,8 +34,8 @@ function changeDialog(state = defaultDialog, action) {
 }
 
 const defaultUser = {
-  nickName:"",
-  avatar:avatar
+  nickName: "Hello User",
+  avatar: avatar,
 };
 function changeUser(state = defaultUser, action) {
   switch (action.type) {
@@ -73,5 +73,5 @@ export default combineReducers({
   routerSelect,
   searchKeyWords,
   changeDialog,
-  changeUser
+  changeUser,
 });
