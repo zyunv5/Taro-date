@@ -6,9 +6,9 @@
 	"setting": {
 		"urlCheck": true,
 		"es6": true,
-		"postcss": true,
+		"postcss": false,
 		"preloadBackgroundData": false,
-		"minified": true,
+		"minified": false,
 		"newFeature": true,
 		"coverView": true,
 		"autoAudits": false,
@@ -28,7 +28,7 @@
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"cloudfunctionRoot": "birthdayList/",
-	"libVersion": "2.11.1",
+	"libVersion": "2.11.0",
 	"condition": {
 		"search": {
 			"current": -1,

@@ -1,0 +1,64 @@
+.index {
+  width: 100%;
+  margin-top: 30px;
+}
+.index .index-month {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.index .index-month .month-date {
+  width: 130px;
+  text-align: center;
+  margin: 20px 0;
+}
+.index .index-month .month-left {
+  width: 100px;
+  text-align: center;
+}
+.index .index-month .month-right {
+  width: 100px;
+  text-align: center;
+}
+.index .index-week {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.index .index-week .week-item {
+  width: calc(100% / 7);
+  text-align: center;
+}
+.index .index-days {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.index .index-days .day-item {
+  width: calc(100% / 7);
+  height: 65px;
+  line-height: 65px;
+  text-align: center;
+  position: relative;
+}
+.index .index-days .day-item .day-item-icon {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  bottom: 2%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, 0);
+}
+.index .index-days .date-item-now {
+  color: #8cd790;
+  font-weight: bold;
+}
+.displayBlock {
+  display: none;
+}

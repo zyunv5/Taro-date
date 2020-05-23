@@ -7,9 +7,9 @@ import configStore from "./store";
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
-// if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
-//   require('nerv-devtools')
-// }
+if (process.env.NODE_ENV !== "production" && process.env.TARO_ENV === "h5") {
+  require("nerv-devtools");
+}
 const store = configStore();
 class App extends Component {
   config = {
@@ -44,18 +44,20 @@ class App extends Component {
       ],
     },
     sitemapLocation: "sitemap.json",
+    cloud: true,
   };
-
   componentWillMount() {
-    wx.cloud.init({
-      traceUser: true,
-      env: "test-50v2n",
-    });
-    wx.hideTabBar();
+    if (!wx.cloud) {
+      console.error("请使用 2.2.3 或以上的基础库以使用云能力");
+    } else {
+      wx.cloud.init({
+        env: "production-2d8f8",
+        traceUser: true,
+      });
+    }
+    // wx.hideTabBar();
   }
-  componentDidMount() {
-    wx.hideTabBar();
-  }
+  componentDidMount() {}
 
   componentDidShow() {}
 

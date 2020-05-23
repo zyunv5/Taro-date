@@ -1,3 +1,4 @@
+import Taro from "@tarojs/taro";
 import { combineReducers } from "redux";
 import {
   GET_LIST,
@@ -6,6 +7,8 @@ import {
   SHOW_DIALOG,
   HIDE_DIALOG,
   CHANGE_USER,
+  SHOW_LOADING,
+  HIDE_LOADING
 } from "./constants";
 import avatar from "../assets/images/normal-avatar.png";
 
@@ -26,7 +29,7 @@ function changeDialog(state = defaultDialog, action) {
   switch (action.type) {
     case SHOW_DIALOG:
       return action.data;
-    case HIDE_DIALOG:
+    case HIDE_LOADING:
       return action.data;
     default:
       return state;

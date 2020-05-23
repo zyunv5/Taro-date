@@ -4,6 +4,7 @@ import { AtAccordion, AtList, AtListItem } from "taro-ui";
 import "./index.less";
 import customTabBar from "../../custom-tab-bar/index";
 import Avatar from "../../components/avatar";
+import Calendar from "../../components/calendar";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
@@ -23,27 +24,12 @@ function mapDispatchToProps(dispatch) {
 export default class Index extends Component {
   config = {
     navigationBarTitleText: "我的",
-    // usingComponents:{}
   };
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.state = {
       birthdayOpen: false,
       commemorateOpen: false,
-      birthdayList: [
-        {
-          title: "标题文字1",
-          thumb:
-            "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
-        },
-      ],
-      commemorateList: [
-        {
-          title: "标题文字1",
-          thumb:
-            "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
-        },
-      ],
     };
   }
   birthdayClick = () => {
@@ -57,11 +43,9 @@ export default class Index extends Component {
     });
   };
 
-  componentWillMount() {
-  }
+  componentWillMount() {}
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {}
 
@@ -72,61 +56,59 @@ export default class Index extends Component {
   render() {
     const { list, userInfo } = this.props;
     return (
-      <Fragment>
-        <View className="mine">
-          <View className="mine-info">
-            <Avatar className="info-portrait" avatar={userInfo.avatar} />
-            <View className="info-name">{userInfo.nickName}</View>
-          </View>
-          <ScrollView scrollY className="mine-list">
-            <AtAccordion
-              className="list-item"
-              open={this.state.birthdayOpen}
-              onClick={() => this.birthdayClick()}
-              isAnimation={true}
-              title="生日列表"
-            >
-              <AtList hasBorder={false}>
-                {list &&
-                  list.map((item) => {
-                    if (item.type === 0) {
-                      return (
-                        <AtListItem
-                          key={item}
-                          title={item.name}
-                          thumb={item.avatar}
-                        />
-                      );
-                    }
-                  })}
-              </AtList>
-            </AtAccordion>
-            <AtAccordion
-              className="list-item"
-              open={this.state.commemorateOpen}
-              onClick={() => this.commemorateClick()}
-              isAnimation={true}
-              title="纪念日列表"
-            >
-              <AtList hasBorder={false}>
-                {list &&
-                  list.map((item) => {
-                    if (item.type === 1) {
-                      return (
-                        <AtListItem
-                          key={item}
-                          title={item.name}
-                          thumb={item.avatar}
-                        />
-                      );
-                    }
-                  })}
-              </AtList>
-            </AtAccordion>
-          </ScrollView>
+      <ScrollView scrollY className="mine">
+        <View className="mine-info">
+          <Avatar className="info-portrait" avatar={userInfo.avatar} />
+          <View className="info-name">{userInfo.nickName}</View>
         </View>
-        {/* <Tabbar /> */}
-      </Fragment>
+        <Calendar />
+        <View className="mine-list">
+          <AtAccordion
+            className="list-item"
+            open={this.state.birthdayOpen}
+            onClick={() => this.birthdayClick()}
+            isAnimation={true}
+            title="生日列表"
+          >
+            <AtList hasBorder={false}>
+              {list &&
+                list.map((item) => {
+                  if (item.type === 0) {
+                    return (
+                      <AtListItem
+                        key={item.name}
+                        title={item.name}
+                        thumb={item.avatar}
+                      />
+                    );
+                  }
+                })}
+            </AtList>
+          </AtAccordion>
+          <AtAccordion
+            className="list-item"
+            open={this.state.commemorateOpen}
+            onClick={() => this.commemorateClick()}
+            isAnimation={true}
+            title="纪念日列表"
+          >
+            <AtList hasBorder={false}>
+              {list &&
+                list.map((item) => {
+                  if (item.type === 1) {
+                    return (
+                      <AtListItem
+                        key={item.name}
+                        title={item.name}
+                        thumb={item.avatar}
+                      />
+                    );
+                  }
+                })}
+            </AtList>
+          </AtAccordion>
+        </View>
+      </ScrollView>
     );
   }
 }

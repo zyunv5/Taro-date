@@ -2,7 +2,7 @@
 	"name": "myApp_taro",
 	"version": "1.0.0",
 	"private": true,
-	"description": "学习taro",
+	"description": "记录生日",
 	"templateInfo": {
 		"name": "default",
 		"typescript": false,

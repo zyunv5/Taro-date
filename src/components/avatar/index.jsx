@@ -23,6 +23,7 @@ export default class Index extends Component {
     size: "normal",
     avatar: avatar,
   };
+
   getSetting = () => {
     let that = this;
     wx.getSetting({
@@ -52,10 +53,10 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
-    const { size,avatar } = this.props;
+    const { size, avatar } = this.props;
     return (
       <View className={`avatar ${size}`} onClick={() => this.getSetting()}>
-        <Image className="avatar-image" mode="scaleToFill" src={avatar} />
+        <Image className="avatar-image" mode="aspectFit" src={avatar} />
       </View>
     );
   }

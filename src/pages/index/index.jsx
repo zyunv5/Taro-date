@@ -75,16 +75,16 @@ export default class Index extends Component {
   componentWillMount() {}
 
   componentDidMount() {
-    let that=this;
+    let that = this;
     Taro.getSetting({
       success: function (res) {
         if (res.authSetting["scope.userInfo"]) {
           Taro.getUserInfo({
             success: function (res) {
               that.props.changeUserInfo({
-                nickName:res.userInfo.nickName,
-                avatar:res.userInfo.avatarUrl
-              })
+                nickName: res.userInfo.nickName,
+                avatar: res.userInfo.avatarUrl,
+              });
             },
           });
         }
@@ -108,11 +108,11 @@ export default class Index extends Component {
     });
   };
 
-  getSetting=()=>{
+  getSetting = () => {
     this.refs.avatar.getSetting();
-  }
+  };
   render() {
-    const { list,userInfo } = this.props;
+    const { list, userInfo } = this.props;
     return (
       <Fragment>
         <ScrollView
@@ -123,7 +123,12 @@ export default class Index extends Component {
         >
           <View className="index-top">
             <View className="top-avatar">
-              <Avatar size={"small"} ref="avatar" avatar={userInfo.avatar} onClick={()=>this.getSetting()}/>
+              <Avatar
+                size={"small"}
+                ref="avatar"
+                avatar={userInfo.avatar}
+                onClick={() => this.getSetting()}
+              />
             </View>
             <View className="top-search">
               <Search className="top-search" />
@@ -139,7 +144,10 @@ export default class Index extends Component {
                     onClick={() => this.seeDetail(item)}
                   >
                     <View className="item-name">{item.name}</View>
-                <View className="item-cycle">距离{item.cycle}{item.type===0?"岁":"周年"}</View>
+                    <View className="item-cycle">
+                      距离{item.cycle}
+                      {item.type === 0 ? "岁" : "周年"}
+                    </View>
                     <View className="item-term">还有{item.term}天</View>
                   </View>
                 );

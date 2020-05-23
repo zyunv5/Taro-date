@@ -1,5 +1,5 @@
 import Taro, { Component, Fragment } from "@tarojs/taro";
-import { View, Image, Text } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import "./index.css";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
@@ -20,7 +20,6 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      canIUse: wx.canIUse("button.open-type.getUserInfo"),
       openid: null,
     };
   }

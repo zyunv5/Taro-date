@@ -57,7 +57,7 @@ export default class Index extends Component {
       lunarCalendar: params.lunarCalendar,
       type: params.type,
       params: params,
-      files: [{ url: params.avatar }],
+      files: [{ url: params.avatar||avatar }],
     });
   }
 
@@ -173,7 +173,7 @@ export default class Index extends Component {
       files,
     } = this.state;
     return (
-      <View className={`index ${sex === 0 ? "bg-female" : "bg-male"}`}>
+      <View className="index">
         <AtImagePicker
           multiple={false}
           files={files}
@@ -189,7 +189,7 @@ export default class Index extends Component {
               value={name}
               type="text"
               onInput={(e) => this.nameInput(e)}
-              className="info-name"
+              className={`info-name ${type!==0?'info-name-width':""}`}
             />
             {type === 0 ? (
               <View className="info-sex">
