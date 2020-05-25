@@ -1,11 +1,9 @@
-import Taro, { Component, Fragment } from "@tarojs/taro";
-import { View, Text, Image, ScrollView } from "@tarojs/components";
+import Taro, { PureComponent } from "@tarojs/taro";
+import { View, ScrollView } from "@tarojs/components";
 import { AtAccordion, AtList, AtListItem } from "taro-ui";
 import "./index.less";
-import customTabBar from "../../custom-tab-bar/index";
 import Avatar from "../../components/avatar";
 import Calendar from "../../components/calendar";
-
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
@@ -22,7 +20,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Index extends Component {
+export default class Index extends PureComponent {
   config = {
     navigationBarTitleText: "我的",
   };

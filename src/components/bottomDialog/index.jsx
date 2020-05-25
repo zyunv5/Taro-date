@@ -18,14 +18,16 @@ export default class Index extends Component {
     solar: [],
     lunar: [],
   };
-  componentWillMount() {}
-  componentDidMount() {
+  componentWillMount() {
     const { solar, lunar } = this.props;
     if (solar.length > 0) {
       this.setState({ calendar: 0 });
     } else if (lunar.length > 0) {
       this.setState({ calendar: 1 });
     }
+  }
+  componentDidMount() {
+
   }
   componentWillUnmount() {}
   componentDidShow() {}

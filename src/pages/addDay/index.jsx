@@ -1,4 +1,4 @@
-import Taro, { Component } from "@tarojs/taro";
+import Taro, { PureComponent } from "@tarojs/taro";
 import { View, RadioGroup, Radio, Input, Label } from "@tarojs/components";
 import { AtImagePicker } from "taro-ui";
 import BottomDialog from "../../components/bottomDialog";
@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Index extends Component {
+export default class Index extends PureComponent {
   config = {
     navigationBarTitleText: "新增",
   };
@@ -34,8 +34,7 @@ export default class Index extends Component {
       dataSelect: "",
     };
   }
-  componentWillMount() {}
-  componentDidMount() {
+  componentWillMount() {
     wx.getStorageSync({
       key: "openid",
       success(res) {
@@ -45,12 +44,12 @@ export default class Index extends Component {
       },
     });
   }
+  componentDidMount() {}
   componentWillUnmount() {}
   componentDidShow() {}
   componentDidHide() {}
   //切换生日/纪念日
   dayChange = (event) => {
-    console.log(event);
     this.setState({
       type: event.detail.value,
     });

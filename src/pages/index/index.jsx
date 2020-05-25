@@ -1,49 +1,31 @@
-import Taro, { Component, Fragment } from "@tarojs/taro";
-import { ScrollView, View, Text, Button } from "@tarojs/components";
+import Taro, { PureComponent, Fragment } from "@tarojs/taro";
+import { ScrollView, View } from "@tarojs/components";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
 import "./index.less";
 import Search from "../../components/Search";
 import Avatar from "../../components/avatar";
-import customTabBar from "../../custom-tab-bar/index";
 import Login from "../../components/login/index";
-import { TimeLine } from "../../utils/timeLine";
 
-function mapStateToProps(state) {
-  return {
-    list: state.list,
-    userInfo: state.changeUser,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    ...bindActionCreators(Actions, dispatch),
-  };
-}
-@connect(mapStateToProps, mapDispatchToProps)
-export default class Index extends Component {
+@connect(state=>({
+  list: state.list,
+  userInfo: state.changeUser,
+}), dispatch=>({
+  ...bindActionCreators(Actions, dispatch),
+}))
+
+export default class Index extends PureComponent {
   config = {
     navigationBarTitleText: "首页",
-    // usingComponents:{}
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      hasUserInfo: false,
-      canIUse: wx.canIUse("button.open-type.getUserInfo"),
-      // listData: [
-      //
-      // ],
-    };
   }
 
   componentWillMount() {
     Taro.showLoading();
-  }
-
-  componentDidMount() {
     let that = this;
     Taro.getSetting({
       success: function (res) {
@@ -59,6 +41,9 @@ export default class Index extends Component {
         }
       },
     });
+  }
+
+  componentDidMount() {
     this.props.asyncGetList();
   }
 
@@ -104,7 +89,7 @@ export default class Index extends Component {
             </View>
           </View>
           <View className="index-list">
-            {list.length!==0?
+            {list.length !== 0 ? (
               list.map((item, index) => {
                 return (
                   <View
@@ -120,8 +105,10 @@ export default class Index extends Component {
                     <View className="item-term">还有{item.term}天</View>
                   </View>
                 );
-              }):<View className="list-no-data">无数据</View>
-              }
+              })
+            ) : (
+              <View className="list-no-data">无数据</View>
+            )}
           </View>
         </ScrollView>
         <Login />

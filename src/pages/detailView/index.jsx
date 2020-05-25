@@ -1,4 +1,4 @@
-import Taro, { Component } from "@tarojs/taro";
+import Taro, { PureComponent } from "@tarojs/taro";
 import { View, Input, Radio } from "@tarojs/components";
 import { AtImagePicker } from "taro-ui";
 import "./index.css";
@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Index extends Component {
+export default class Index extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +53,6 @@ export default class Index extends Component {
       return item._id === id;
     });
     const params = paramArr[0];
-    console.log(params);
     if (params.type === 0) {
       Taro.setNavigationBarTitle({
         title: params.name + "的生日",
