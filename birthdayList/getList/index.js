@@ -1,7 +1,8 @@
 //获取所有日期列表
 const cloud = require('wx-server-sdk')
 cloud.init({
-  env:cloud.DYNAMIC_CURRENT_ENV
+  env:cloud.DYNAMIC_CURRENT_ENV,
+  traceUser: true,
 })
 const db = cloud.database()
 
