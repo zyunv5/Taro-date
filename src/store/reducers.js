@@ -8,7 +8,7 @@ import {
   HIDE_DIALOG,
   CHANGE_USER,
   SHOW_LOADING,
-  HIDE_LOADING
+  HIDE_LOADING,
 } from "./constants";
 import avatar from "../assets/images/normal-avatar.png";
 
@@ -50,7 +50,174 @@ function changeUser(state = defaultUser, action) {
 }
 
 //index和mine获取列表数据
-const initList = [];
+const initList = [
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 1,
+  //   name: "爸爸",
+  //   sex: 1,
+  //   term: "15",
+  //   cycle: "20",
+  //   avatar: "",
+  //   solarCalendar: "",
+  //   lunarCalendar: "",
+  //   type: 0,
+  // },
+  // {
+  //   id: 2,
+  //   name: "妻子",
+  //   sex: 0,
+  //   term: "25",
+  //   cycle: "30",
+  //   avatar: "",
+  //   solarCalendar: "",
+  //   lunarCalendar: "",
+  //   type: 0,
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+  // {
+  //   id: 0,
+  //   name: "妈妈", //名称
+  //   sex: 0, //0女 1男 2默认不填
+  //   term: "5", //还有几天
+  //   cycle: "40", //多少周年
+  //   avatar:
+  //     "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
+  //   solarCalendar: "1971-3-28", //阳历
+  //   lunarCalendar: "", //阴历
+  //   type: 0, //0是生日 1是纪念日
+  // },
+];
 function list(state = initList, action) {
   switch (action.type) {
     case GET_LIST:

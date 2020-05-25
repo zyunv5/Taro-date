@@ -55,7 +55,6 @@ class App extends Component {
         traceUser: true,
       });
     }
-    // wx.hideTabBar();
   }
   componentDidMount() {}
 

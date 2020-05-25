@@ -4,10 +4,11 @@ cloud.init();
 const db = cloud.database();
 exports.main = async (event, context) => {
   const { database, condition } = event;
+  console.log(condition)
   try {
     return await db
       .collection(database)
-      .doc(condition._id)
+      .doc(condition.id)
       .set({
         data: {
           avatar: condition.avatar,

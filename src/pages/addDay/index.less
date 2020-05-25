@@ -1,12 +1,15 @@
 .index {
   width: 100vw;
   height: 100vh;
-  padding: 5vh 5vw 0 5vw;
+  padding: 100px 15px 140px 15px;
   box-sizing: border-box;
   position: relative;
   .index-radio-group {
     width: 50vw;
     margin: 30px auto;
+    .radio-first{
+      width: 130px;
+    }
     .radio-commemorate {
       margin-left: 30px;
     }
@@ -24,6 +27,7 @@
     width: 60vw;
     height: 5vh;
     margin: 50px auto;
+
     .name-label {
       width: 130px;
       height: 100%;
@@ -35,6 +39,10 @@
       height: 100%;
       line-height: 5vh;
       float: left;
+      box-sizing: border-box;
+      border: 1px solid #000;
+      text-align: center;
+      border-radius: 10px;
     }
   }
   .index-date {
@@ -42,14 +50,19 @@
     height: 5vh;
     margin: 0vh auto 5vh;
     .date-label {
-      width: 100px;
+      width: 130px;
       height: 100%;
       float: left;
     }
     .date-select {
-      width: calc(100% - 100px);
+      width: calc(100% - 130px);
       height: 100%;
+      line-height: 5vh;
       float: left;
+      box-sizing: border-box;
+      border: 1px solid #000;
+      text-align: center;
+      border-radius: 10px;
     }
   }
   .index-submit {

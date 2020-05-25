@@ -48,8 +48,9 @@ export default class Index extends Component {
   componentWillUnmount() {}
   componentDidShow() {}
   componentDidHide() {}
-  //勾选不同的纪念日
-  radioChange = (event) => {
+  //切换生日/纪念日
+  dayChange = (event) => {
+    console.log(event);
     this.setState({
       type: event.detail.value,
     });
@@ -60,51 +61,66 @@ export default class Index extends Component {
     });
   };
   onChangeImg = (files) => {
-    console.log(files);
     if (files.length === 0) {
       this.setState({
         files: [],
       });
     } else {
-      let that = this;
-      let extension = files[0].url.split(".").pop();
-      wx.cloud.uploadFile({
-        cloudPath: `file/${new Date().getTime()}.${extension}`,
-        filePath: files[0].url, //这个就是图片的存储路径
-        success: (res) => {
-          console.log("[上传图片]成功:", res.fileID);
-          this.setState({
-            files: this.state.files.concat({ url: res.fileID }),
-          });
-          wx.cloud
-            .callFunction({
-              name: "uploadImg",
-              data: {
-                database: "imgData",
-                condition: {
-                  userId: wx.getStorageSync("openid"),
-                  imgUrl: res.fileID,
-                },
-              },
-            })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => console.log(err));
-        },
-        fail: (err) => {
-          console.log(err);
-        },
+      Taro.showLoading({
+        title: "图片上传中...",
       });
+      this.uploadCloud(files);
     }
   };
   //选择图片失败
-  onFail(mes) {
-    console.log(mes);
+  onFail() {
+    Taro.showToast({
+      title: '上传失败',
+      duration: 2000
+    })
   }
-  onImageClick(index, file) {
-    console.log(index, file);
-  }
+  //图片上传到云开发的储存中
+  uploadCloud = (files) => {
+    let extension = files[0].url.split(".").pop();
+    wx.cloud.uploadFile({
+      cloudPath: `file/${new Date().getTime()}.${extension}`,
+      filePath: files[0].url, //这个就是图片的存储路径
+      success: (res) => {
+        // console.log("[上传图片]成功:", res.fileID);
+        this.uploadCloudData(res);
+        this.setState(
+          {
+            files: this.state.files.concat({ url: res.fileID }),
+          },
+          () => {
+            Taro.hideLoading();
+          }
+        );
+      },
+      fail: (err) => {
+        console.log(err);
+      },
+    });
+  };
+  //图片上传到数据库中
+  uploadCloudData = (res) => {
+    wx.cloud
+      .callFunction({
+        name: "uploadImg",
+        data: {
+          database: "imgData",
+          condition: {
+            userId: wx.getStorageSync("openid"),
+            imgUrl: res.fileID,
+          },
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
   //用户输入
   nameInput = (e) => {
     this.setState({
@@ -161,14 +177,13 @@ export default class Index extends Component {
             mode="aspectFit"
             length={1}
             className="avatar"
-            onImageClick={this.onImageClick.bind(this)}
           />
         </View>
         <RadioGroup
           class="index-radio-group"
-          onChange={(event) => this.radioChange(event)}
+          onChange={(event) => this.dayChange(event)}
         >
-          <Radio value="0" checked>
+          <Radio value="0" checked className="radio-first">
             生日
           </Radio>
           <Radio value="1" className="radio-commemorate">
@@ -180,7 +195,7 @@ export default class Index extends Component {
             class="index-radio-group"
             onChange={(event) => this.sexChange(event)}
           >
-            <Radio value="0" checked>
+            <Radio value="0" checked className="radio-first">
               女
             </Radio>
             <Radio value="1" className="radio-commemorate">

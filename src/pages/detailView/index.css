@@ -1,7 +1,8 @@
 .index {
-  width: 95vw;
-  height: 98vh;
+  width: 100vw;
+  height: 100vh;
   margin: 0 auto;
+  padding: 100px 15px 140px 15px;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -11,12 +12,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #eee;
+  box-sizing: border-box;
 }
 .index .index-avatar {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  margin-top: 50px;
+  margin-top: 15px;
 }
 .index .index-info {
   width: 65vw;
@@ -30,15 +32,17 @@
   height: 50px;
   line-height: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 20px;
 }
 .index .index-info .info-item .info-name {
   width: 200px;
   text-align: center;
+  border-bottom: 1px solid #000;
+  margin-right: 15px;
 }
 .index .index-info .info-item .info-name-width {
-  width: 100%;
+  width: 250px;
 }
 .index .index-info .info-item .info-sex {
   width: calc(100% - 200px);

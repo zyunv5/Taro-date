@@ -1,6 +1,8 @@
 import Taro, { Component, Fragment } from "@tarojs/taro";
-import { View, Image, Text } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
 import "./index.css";
+import Left from "../../assets/images/left.png";
+import Right from "../../assets/images/right.png";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
@@ -37,38 +39,46 @@ export default class Index extends Component {
 
   static defaultProps = {};
   componentWillMount() {
-    const date = new Date();
-    this.calcDays(date.getFullYear(), date.getMonth() + 1, date.getDate());
     const { list } = this.props;
-    const solarUser = [];
-    list.map((item) => {
-      if (item.solarCalendar.length > 0) {
-        solarUser.push(item);
-      }
-    });
-    console.log(solarUser);
+    const date = new Date();
+    this.calcDays(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate(),
+      list
+    );
   }
   componentDidMount() {}
   componentWillUnmount() {}
   componentDidShow() {}
   componentDidHide() {}
+  //查看上个月
   prevMonth = () => {
-    const date = new Date();
+    const { list } = this.props;
     const { cMonth } = this.state;
+    const date = new Date();
     if (cMonth === 1) return;
-    this.calcDays(date.getFullYear(), cMonth - 1, date.getDate());
+    this.calcDays(date.getFullYear(), cMonth - 1, date.getDate(), list);
   };
+  //查看下个月
   nextMonth = () => {
-    const date = new Date();
+    const { list } = this.props;
     const { cMonth } = this.state;
+    const date = new Date();
     if (cMonth === 12) return;
-    this.calcDays(date.getFullYear(), cMonth + 1, date.getDate());
+    this.calcDays(date.getFullYear(), cMonth + 1, date.getDate(), list);
   };
-  calcDays = (year, month, day) => {
-    const { days, cMonth } = calendarTable([year, month, day]);
+  //计算日历
+  calcDays = (year, month, day, list) => {
+    const { days, cMonth } = calendarTable([year, month, day, list]);
     this.setState({
       day: days,
       cMonth: cMonth,
+    });
+  };
+  showDetail = (item) => {
+    Taro.navigateTo({
+      url:`../../pages/detailView/index?id=${item.id}`
     });
   };
   render() {
@@ -77,13 +87,23 @@ export default class Index extends Component {
       <View className="index">
         <View className="index-month">
           <View className="month-left" onClick={() => this.prevMonth()}>
-            -
+            <Image
+              className="month-left-image"
+              style={`${cMonth === 1 ? "display:none" : ""}`}
+              mode="aspectFit"
+              src={Left}
+            />
           </View>
           <View className="month-date">
             {year}-{cMonth}
           </View>
           <View className="month-right" onClick={() => this.nextMonth()}>
-            +
+            <Image
+              className="month-right-image"
+              style={`${cMonth === 12 ? "display:none" : ""}`}
+              mode="aspectFit"
+              src={Right}
+            />
           </View>
         </View>
 
@@ -101,12 +121,16 @@ export default class Index extends Component {
             return (
               <View
                 className={`day-item ${
-                  cDay === item && month === cMonth ? "date-item-now" : ""
+                  cDay === item.date && month === cMonth ? "date-item-now" : ""
                 }`}
-                key={item}
+                key={item.date}
+                onClick={() => this.showDetail(item)}
               >
-                {item}
-                <View className="day-item-icon"></View>
+                {item.date}
+                <View
+                  className="day-item-icon"
+                  style={`${item.active ? "" : "display:none"}`}
+                ></View>
               </View>
             );
           })}

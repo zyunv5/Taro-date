@@ -1210,20 +1210,38 @@ const oldDayToNewDay = function (x) {
 };
 
 //计算当前月份有多少天，返回一个数组
-const calendarTable = function (date) {
-  const [year, month, day] = date;
-  const { solarDaysArray, cDay,cMonth } = calendarFunc.solar2lunar(year, month, day);
+const calendarTable = function (data) {
+  const [year, month, day, list] = data;
+  const { solarDaysArray, cDay, cMonth } = calendarFunc.solar2lunar(
+    year,
+    month,
+    day
+  );
   let { nWeek } = calendarFunc.solar2lunar(year, month, 1);
-  if(nWeek===7){nWeek=0}
+  if (nWeek === 7) {
+    nWeek = 0;
+  }
   const days = [];
   for (let i = 0; i < solarDaysArray.length + nWeek; i++) {
     if (i < nWeek) {
-      days.push("");
+      days.push({ date: "", active: false });
     } else {
-      days.push(solarDaysArray[i-nWeek]);
+      days.push({ date: solarDaysArray[i - nWeek], active: false });
     }
   }
-  return { days, cDay,cMonth };
+  for (let i = 0; i < days.length; i++) {
+    for (let j = 0; j < list.length; j++) {
+      if (
+        list[j].solarCalendar.length > 0 &&
+        list[j].solarCalendar[1] === cMonth &&
+        list[j].solarCalendar[2] === days[i].date
+      ) {
+        days[i].active = true;
+        days[i].id = list[j]._id;
+      }
+    }
+  }
+  return { days, cDay, cMonth };
 };
 
 module.exports = {

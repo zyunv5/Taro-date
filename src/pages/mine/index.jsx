@@ -5,6 +5,7 @@ import "./index.less";
 import customTabBar from "../../custom-tab-bar/index";
 import Avatar from "../../components/avatar";
 import Calendar from "../../components/calendar";
+
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";

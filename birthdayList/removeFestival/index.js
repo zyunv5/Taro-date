@@ -9,7 +9,7 @@ exports.main = async (event, context) => {
   try {
     return await db
       .collection(database)
-      .where({ userId: condition.userId, _id: condition._id })
+      .where({ userId: condition.userId, _id: condition.id })
       .remove();
   } catch (error) {
     console.log(error);

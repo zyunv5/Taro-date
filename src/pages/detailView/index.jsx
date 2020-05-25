@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Image, Picker, Input } from "@tarojs/components";
+import { View, Input, Radio } from "@tarojs/components";
 import { AtImagePicker } from "taro-ui";
 import "./index.css";
 import avatar from "../../assets/images/normal-avatar.png";
@@ -9,7 +9,9 @@ import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    list: state.list,
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
@@ -21,23 +23,37 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
+      files: [],
       name: "张",
-      sex: 1,
+      sexArray: [
+        { name: "女士", value: "0", selected: true, class: "" },
+        {
+          name: "先生",
+          value: "1",
+          selected: false,
+          class: "radio-commemorate",
+        },
+      ],
+      sex:0,
       term: 25,
       cycle: 29,
       avatar: avatar,
       solarCalendar: ["1992", "2", "18"],
       lunarCalendar: ["1992", "正月", "十五"],
-      selector: ["先生", "女士"],
-      selectorChecked: "先生",
-      params: {},
-      files: [],
     };
   }
 
   componentWillMount() {
     // 获取路由携带过来的参数
-    const params = JSON.parse(this.$router.params.data);
+    const {sexArray}=this.state;
+    const { list } = this.props;
+    const id = this.$router.params.id;
+    const paramArr = list.filter((item) => {
+      return item._id === id;
+    });
+    const params = paramArr[0];
+    console.log(params);
     if (params.type === 0) {
       Taro.setNavigationBarTitle({
         title: params.name + "的生日",
@@ -47,17 +63,24 @@ export default class Index extends Component {
         title: params.name + " 纪念日",
       });
     }
+    if(parseInt(params.sex)===0){
+      sexArray[0].selected=true
+      sexArray[1].selected=false
+    }else{
+      sexArray[0].selected=false
+      sexArray[1].selected=true
+    }
     this.setState({
+      id: params._id,
       name: params.name,
-      sex: params.sex,
+      sexArray: sexArray,
       term: params.term,
       cycle: params.cycle,
       avatar: params.avatar || avatar,
       solarCalendar: params.solarCalendar,
       lunarCalendar: params.lunarCalendar,
       type: params.type,
-      params: params,
-      files: [{ url: params.avatar||avatar }],
+      files: [{ url: params.avatar || avatar }],
     });
   }
 
@@ -69,22 +92,24 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
+  //更新数据
   saveInfo = () => {
     const params = this.state;
     params.userId = wx.getStorageSync("openid");
-    params._id = this.state.params._id;
     this.props.updateItem(params);
   };
+  //取消更新
   cancelInfo = () => {
     Taro.switchTab({ url: "/pages/index/index" });
   };
+  //删除数据
   removeInfo = () => {
     let that = this;
     wx.showModal({
       content: "确认要删除这条数据吗？",
       success(res) {
         if (res.confirm) {
-          const params = that.state.params;
+          const params = that.state;
           params.userId = wx.getStorageSync("openid");
           that.props.removeItem(params);
         } else if (res.cancel) {
@@ -93,17 +118,17 @@ export default class Index extends Component {
       },
     });
   };
-  onChange = (e) => {
-    this.setState({
-      selectorChecked: this.state.selector[e.detail.value],
-    });
-  };
   nameInput = (e) => {
     this.setState({
       name: e.detail.value,
     });
   };
-  sexChange = () => {};
+  //改变性别
+  sexChange = (event) => {
+    this.setState({
+      sex: event.detail.value,
+    });
+  };
   //显示时间选择器
   showDialog = () => {
     this.refs.getDialog.showDialog();
@@ -120,7 +145,7 @@ export default class Index extends Component {
     });
   };
   onChangeImg = (files) => {
-    console.log(files);
+    // console.log(files);
     if (files.length === 0) {
       this.setState({
         files: [],
@@ -131,7 +156,7 @@ export default class Index extends Component {
         cloudPath: `file/${new Date().getTime()}.${extension}`,
         filePath: files[0].url, //这个就是图片的存储路径
         success: (res) => {
-          console.log("[上传图片]成功:", res.fileID);
+          // console.log("[上传图片]成功:", res.fileID);
           this.setState({
             files: this.state.files.concat({ url: res.fileID }),
           });
@@ -157,16 +182,12 @@ export default class Index extends Component {
       });
     }
   };
-  onImageClick(index, file) {
-    console.log(index, file);
-  }
 
   render() {
     const {
       name,
       sex,
       term,
-      avatar,
       solarCalendar,
       lunarCalendar,
       type,
@@ -181,7 +202,6 @@ export default class Index extends Component {
           mode="aspectFit"
           length={1}
           className="index-avatar"
-          onImageClick={this.onImageClick.bind(this)}
         />
         <View className="index-info">
           <View className="info-item">
@@ -189,7 +209,7 @@ export default class Index extends Component {
               value={name}
               type="text"
               onInput={(e) => this.nameInput(e)}
-              className={`info-name ${type!==0?'info-name-width':""}`}
+              className={`info-name ${type !== 0 ? "info-name-width" : ""}`}
             />
             {type === 0 ? (
               <View className="info-sex">
@@ -197,16 +217,21 @@ export default class Index extends Component {
                   class="index-radio-group"
                   onChange={(event) => this.sexChange(event)}
                 >
-                  <Radio value="0" checked={`${sex === 0}` ? true : false}>
+                  {sexArray.map(item=>{
+                    return (<Radio key={item.name} value={item.value} checked={item.selected} className={item.class}>
+                    {item.name}
+                  </Radio>)
+                  })}
+                  {/* <Radio value="0" checked={`${parseInt(sex)===0}`?"checked":false}>
                     女士
                   </Radio>
                   <Radio
                     value="1"
                     className="radio-commemorate"
-                    checked={`${sex === 1}` ? true : false}
+                    checked={`${parseInt(sex) === 1}`?"checked":false}
                   >
                     先生
-                  </Radio>
+                  </Radio> */}
                 </RadioGroup>
               </View>
             ) : (

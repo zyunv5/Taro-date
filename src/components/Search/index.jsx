@@ -1,10 +1,11 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text, Input, Image } from "@tarojs/components";
 import searchIcon from "../../assets/images/search.png";
+import searchClose from "../../assets/images/close.png";
 import "./index.css";
 import { connect } from "@tarojs/redux";
-import { bindActionCreators } from 'redux'
-import * as Actions from '../../store/actions'
+import { bindActionCreators } from "redux";
+import * as Actions from "../../store/actions";
 
 function mapStateToProps(state) {
   return {};
@@ -15,7 +16,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 @connect(mapStateToProps, mapDispatchToProps)
-
 export default class Index extends Component {
   constructor(props) {
     super(props);
@@ -35,8 +35,10 @@ export default class Index extends Component {
   componentDidHide() {}
 
   changeInput = (e) => {
-    if(e.detail.value===""){//当删除为空时，重新拉取数据
-      this.props.asyncGetList()
+    if (e.detail.value === "") {
+      //当删除为空时，重新拉取数据
+      Taro.showLoading();
+      this.props.asyncGetList();
     }
     this.setState({
       inputValue: e.detail.value,
@@ -45,7 +47,14 @@ export default class Index extends Component {
   //模糊搜索
   searchKeyWords = () => {
     let keyWords = this.state.inputValue;
-    this.props.asyncSearchKeyWords(keyWords)
+    this.props.asyncSearchKeyWords(keyWords);
+  };
+  //clear
+  clearKeyWords = () => {
+    this.setState({
+      inputValue: "",
+    });
+    this.props.asyncGetList()
   };
 
   render() {
@@ -59,12 +68,17 @@ export default class Index extends Component {
           placeholder="请输入要搜索的名称"
           confirmType="search"
           onInput={(e) => this.changeInput(e)}
+          onConfirm={() => this.searchKeyWords()}
         />
         <Image
           className="search-icon"
-          src={searchIcon}
+          src={inputValue ? `${searchClose}` : `${searchIcon}`}
           mode="scaleToFill"
-          onClick={() => this.searchKeyWords()}
+          onClick={
+            inputValue
+              ? () => this.clearKeyWords()
+              : () => this.searchKeyWords()
+          }
         />
       </View>
     );

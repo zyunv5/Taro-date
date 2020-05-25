@@ -18,9 +18,17 @@
   width: 100px;
   text-align: center;
 }
+.index .index-month .month-left .month-left-image {
+  width: 100%;
+  height: 25px;
+}
 .index .index-month .month-right {
   width: 100px;
   text-align: center;
+}
+.index .index-month .month-right .month-right-image {
+  width: 100%;
+  height: 25px;
 }
 .index .index-week {
   width: 100%;
@@ -54,6 +62,7 @@
   left: 50%;
   border-radius: 50%;
   transform: translate(-50%, 0);
+  background-color: red;
 }
 .index .index-days .date-item-now {
   color: #8cd790;

@@ -16,7 +16,6 @@ export const changeRouter = (bool) => ({ type: CHANGE_TABBAR, bool });
 //index和mine获取列表数据
 export function asyncGetList() {
   return (dispatch) => {
-    Taro.showLoading();
     wx.cloud
       .callFunction({
         name: "getList",
