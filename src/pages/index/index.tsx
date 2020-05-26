@@ -1,4 +1,4 @@
-import Taro, { Component, Fragment } from "@tarojs/taro";
+import Taro, { Component, Fragment,Config } from "@tarojs/taro";
 import { ScrollView, View, Text, Button } from "@tarojs/components";
 import { connect } from "@tarojs/redux";
 import { bindActionCreators } from "redux";
@@ -6,9 +6,8 @@ import * as Actions from "../../store/actions";
 import "./index.less";
 import Search from "../../components/Search";
 import Avatar from "../../components/avatar";
-import customTabBar from "../../custom-tab-bar/index";
 import Login from "../../components/login/index";
-import { TimeLine } from "../../utils/timeLine";
+import { IconProps } from "@tarojs/components/types/Icon";
 
 function mapStateToProps(state) {
   return {
@@ -22,53 +21,24 @@ function mapDispatchToProps(dispatch) {
   };
 }
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Index extends Component {
-  config = {
+
+interface IProps{}
+
+interface IState{
+  hasUserInfo:boolean,
+  canIUse:boolean
+}
+
+export default class Index extends Component<IProps,IState> {
+  config:Config = {
     navigationBarTitleText: "首页",
-    // usingComponents:{}
   };
 
   constructor(props) {
     super(props);
     this.state = {
       hasUserInfo: false,
-      canIUse: wx.canIUse("button.open-type.getUserInfo"),
-      // listData: [
-      //   {
-      //     id: 0,
-      //     name: "妈妈", //名称
-      //     sex: 0, //0女 1男 2默认不填
-      //     term: "5", //还有几天
-      //     cycle: "40", //多少周年
-      //     avatar:
-      //       "https://statich.yidianzixun.com/public/file/1587524234342/avatar.jpg", //头像
-      //     solarCalendar: "1971-3-28", //阳历
-      //     lunarCalendar: "", //阴历
-      //     type: 0, //0是生日 1是纪念日
-      //   },
-      //   {
-      //     id: 1,
-      //     name: "爸爸",
-      //     sex: 1,
-      //     term: "15",
-      //     cycle: "20",
-      //     avatar: "",
-      //     solarCalendar: "",
-      //     lunarCalendar: "",
-      //     type: 0,
-      //   },
-      //   {
-      //     id: 2,
-      //     name: "妻子",
-      //     sex: 0,
-      //     term: "25",
-      //     cycle: "30",
-      //     avatar: "",
-      //     solarCalendar: "",
-      //     lunarCalendar: "",
-      //     type: 0,
-      //   },
-      // ],
+      canIUse: Taro.canIUse("button.open-type.getUserInfo"),
     };
   }
 

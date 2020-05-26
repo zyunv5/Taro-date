@@ -1,13 +1,10 @@
-import Taro from "@tarojs/taro";
 import { combineReducers } from "redux";
 import {
   GET_LIST,
   CHANGE_TABBAR,
   SEARCH_KEY_WORDS,
   SHOW_DIALOG,
-  HIDE_DIALOG,
   CHANGE_USER,
-  SHOW_LOADING,
   HIDE_LOADING
 } from "./constants";
 import avatar from "../assets/images/normal-avatar.png";

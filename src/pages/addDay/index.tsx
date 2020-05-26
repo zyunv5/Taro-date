@@ -1,4 +1,4 @@
-import Taro, { Component } from "@tarojs/taro";
+import Taro, { Component,Config } from "@tarojs/taro";
 import { View, RadioGroup, Radio, Input, Label } from "@tarojs/components";
 import { AtImagePicker } from "taro-ui";
 import BottomDialog from "../../components/bottomDialog";
@@ -8,20 +8,26 @@ import { bindActionCreators } from "redux";
 import * as Actions from "../../store/actions";
 
 function mapStateToProps(state) {
-  return {};
+  return{}
 }
+
 function mapDispatchToProps(dispatch) {
   return {
     ...bindActionCreators(Actions, dispatch),
   };
 }
-@connect(mapStateToProps, mapDispatchToProps)
+// @connect(mapStateToProps, mapDispatchToProps)
+
+interface IState{
+  type:number,
+}
+
 export default class Index extends Component {
-  config = {
+  config:Config = {
     navigationBarTitleText: "新增",
   };
   constructor() {
-    super(...arguments);
+    super();
 
     this.state = {
       type: 0,
@@ -36,7 +42,7 @@ export default class Index extends Component {
   }
   componentWillMount() {}
   componentDidMount() {
-    wx.getStorageSync({
+    Taro.getStorageSync({
       key: "openid",
       success(res) {
         this.setState({
@@ -68,7 +74,7 @@ export default class Index extends Component {
     } else {
       let that = this;
       let extension = files[0].url.split(".").pop();
-      wx.cloud.uploadFile({
+      Taro.cloud.uploadFile({
         cloudPath: `file/${new Date().getTime()}.${extension}`,
         filePath: files[0].url, //这个就是图片的存储路径
         success: (res) => {
@@ -76,13 +82,13 @@ export default class Index extends Component {
           this.setState({
             files: this.state.files.concat({ url: res.fileID }),
           });
-          wx.cloud
+          Taro.cloud
             .callFunction({
               name: "uploadImg",
               data: {
                 database: "imgData",
                 condition: {
-                  userId: wx.getStorageSync("openid"),
+                  userId: Taro.getStorageSync("openid"),
                   imgUrl: res.fileID,
                 },
               },
@@ -135,7 +141,7 @@ export default class Index extends Component {
       ? (avatar = this.state.files[0].url)
       : (avatar = "");
     const params = {
-      userId: wx.getStorageSync("openid"),
+      userId: Taro.getStorageSync("openid"),
       avatar: avatar,
       name: this.state.name,
       sex: this.state.sex,
@@ -147,7 +153,7 @@ export default class Index extends Component {
   };
   //取消保存
   cancel = () => {
-    wx.switchTab({ url: "/pages/index/index" });
+    Taro.switchTab({ url: "/pages/index/index" });
   };
   render() {
     const { type, solarDate, lunarDate, files, dataSelect } = this.state;

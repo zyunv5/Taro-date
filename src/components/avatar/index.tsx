@@ -15,22 +15,26 @@ function mapDispatchToProps(dispatch) {
   };
 }
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Index extends Component {
-  constructor(props) {
-    super(props);
-  }
-  static defaultProps = {
+
+export interface AvatarProps{
+  size:string,
+  avatar:any,
+  changeDialogShow:()=>void
+}
+
+export default class Index extends Component<AvatarProps,{}> {
+  public static defaultProps = {
     size: "normal",
     avatar: avatar,
   };
 
   getSetting = () => {
     let that = this;
-    wx.getSetting({
+    Taro.getSetting({
       success(res) {
         if (res.authSetting["scope.userInfo"]) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
+          Taro.getUserInfo({
             success: function (res) {
               console.log(res.userInfo);
             },
@@ -43,13 +47,9 @@ export default class Index extends Component {
   };
 
   componentWillMount() {}
-
   componentDidMount() {}
-
   componentWillUnmount() {}
-
   componentDidShow() {}
-
   componentDidHide() {}
 
   render() {
